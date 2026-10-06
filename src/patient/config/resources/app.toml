@@ -1,0 +1,72 @@
+# Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# TOML = Tom's Obvious, Minimal Language
+# Tom Preston-Werner https://tom.preston-werner.com, Mitgruender von GitHub
+# Erstes Release im Maerz 2013
+
+[server]
+# host-binding = "0.0.0.0"
+# port = 8000
+
+[tls]
+# key = "key.pem"
+# certificate = "certificate.crt"
+
+[db]
+# dialect = "postgresql"
+# username = "patient"
+# name = "patient"
+password = "p"
+password-admin = "p"
+host = "localhost"
+# locust: auskommentieren
+log-statements = true
+
+[mail]
+# enabled = false
+host = "localhost"
+# host = "mail"
+port = 1025
+# timeout = 1.0
+# sender = "Python Server <python.server@acme.com>"
+# receivers = ["Buchhaltung <buchhaltung@acme.com>"]
+
+[excel]
+enabled = true
+
+[keycloak]
+# schema = "https"
+host = "localhost"
+# host = "keycloak"
+port = 8843
+# realm = "python"
+# client-id = "python-client"
+client-secret = "Eysuf6OlCmzmbmPuuVBHY245594M0xrJ7LCfVv3ZPe5GFND2vhA9H7jV9ALzLvRJa4fhId91XGmy2H4BG5ayWI"
+# admin = "admin"
+admin-password = "p"
+csv = "extras/compose/postgres/init/patient/csv/patient.csv"
+
+[graphql]
+# locust: auskommentieren
+graphiql-enabled = true
+
+[logger]
+# locust: auskommentieren
+debug-level = true
+
+[dev]
+db-populate = true
+keycloak-populate = true

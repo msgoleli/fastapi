@@ -1,0 +1,12 @@
+name: patient
+variables:
+  - name: clientId
+    value: python-client
+  - name: username
+    value: admin
+  - secret: true
+    name: clientSecret
+    description: ""
+  - secret: true
+    name: password
+    description: ""

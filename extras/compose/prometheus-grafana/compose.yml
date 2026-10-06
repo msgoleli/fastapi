@@ -1,0 +1,121 @@
+# Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Aufruf:   docker compose up
+#             Prometheus: http://localhost:9090
+#                         http_server_requests_seconds_bucket
+#                         process_cpu_usage
+#             Grafana:    http://localhost:3000
+#                         4701
+#             docker compose exec prometheus ash
+#             docker compose exec grafana bash
+#           docker compose down
+
+# https://grafana.com/blog/2024/03/13/an-opentelemetry-backend-in-a-docker-image-introducing-grafana/otel-lgtm
+
+---
+services:
+  prometheus:
+    image: prom/prometheus:v3.15.0-rc.0
+    ports:
+      - published: 9090
+        target: 9090
+    volumes:
+      - type: bind
+        source: ./prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+        read_only: true
+      - type: bind
+        source: ./prometheus-data
+        target: /prometheus
+      - type: bind
+        source: ../../../src/patient/config/resources/tls/certificate.crt
+        target: /etc/prometheus/certificate.crt
+        read_only: true
+      - type: bind
+        source: ../../../src/patient/config/resources/tls/private-key.pem
+        target: /etc/prometheus/private-key.pem
+        read_only: true
+    networks: [acme-network]
+    container_name: prometheus
+    # https://docs.docker.com/reference/compose-file/services/#cap_drop
+    # https://man7.org/linux/man-pages/man7/capabilities.7.html
+    # https://linux.die.net/man/7/capabilities
+    cap_drop: [ALL]
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9090/-/ready"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+  grafana:
+    image: grafana/grafana:13.1.6
+    depends_on:
+      prometheus:
+        condition: service_healthy
+
+    ports:
+      - published: 3000
+        target: 3000
+    volumes:
+      - type: bind
+        source: ./grafana-datasources
+        target: /etc/grafana/provisioning/datasources
+        read_only: true
+      - type: bind
+        # SQLite-Datenbank mit z.B. der Tabelle "dashboard"
+        source: ./grafana.db
+        target: /var/lib/grafana/grafana.db
+    environment:
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/grafana
+      # default: admin / admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      #- GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      #- GF_AUTH_DISABLE_LOGIN_FORM=true
+    networks: [acme-network]
+    #user: "grafana"
+    container_name: grafana
+    cap_drop: [ALL]
+    healthcheck:
+      test:
+        ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+networks:
+  acme-network:
+    name: acme-network

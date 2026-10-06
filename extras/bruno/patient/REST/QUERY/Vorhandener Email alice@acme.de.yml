@@ -1,0 +1,39 @@
+info:
+  name: Vorhandener Email alice@acme.de
+  type: http
+  seq: 3
+
+http:
+  method: QUERY
+  url: "{{restUrl}}/query"
+  headers:
+    - name: ""
+      value: ""
+      disabled: true
+  body:
+    type: json
+    data: |-
+      {
+          "email": "alice@acme.de"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: eq
+      value: application/json
+    - expression: res.body.content
+      operator: isArray
+    - expression: res.body.content
+      operator: isNotEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

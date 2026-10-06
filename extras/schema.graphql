@@ -1,0 +1,129 @@
+# Copyright (C) 2026 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+# Mit z.B. "Bun" extrahieren:
+#   $env:NODE_TLS_REJECT_UNAUTHORIZED='0'
+#   bunx get-graphql-schema https://localhost:8000/graphql > schema.graphql
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Suche nach Patientendaten"
+type Query {
+  "Suche Patientendaten anhand der ID"
+  patient(patientId: ID!): Patient
+
+  "Suche Patientendaten anhand des Nachnamens oder der Emailadresse"
+  patienten(suchparameter: Suchparameter): [Patient!]!
+}
+
+type Mutation {
+  "Einen neuen Patientendatensatz anlegen"
+  create(patientInput: PatientInput!): CreatePayload!
+
+  "Token zu Benutzername und Passwort anfordern"
+  login(username: String!, password: String!): LoginResult!
+}
+
+# https://spec.graphql.org/draft/#sec-Types
+# https://www.graphql-scalars.dev/docs/scalars/email-address
+# https://www.graphql-scalars.dev/docs/scalars/local-date
+# https://www.graphql-scalars.dev/docs/scalars/currency
+# enum als String, damit toSting() vom Enum-Wert aufgerufen wird
+"Eigenschaften eines Patient-Datensatzes mit untergeordneten Eigenschaften"
+type Patient {
+  id: ID!
+  version: Int!
+  nachname: String!
+  email: String!
+  kategorie: Int!
+  hasNewsletter: Boolean!
+  geburtsdatum: Date!
+  homepage: String
+  geschlecht: Geschlecht
+  familienstand: Familienstand
+  adresse: Adresse!
+  fachaerzte: [Facharzt!]!
+  username: String
+}
+
+type Adresse {
+  plz: String!
+  ort: String!
+}
+
+# https://spec.graphql.org/draft/#sec-Input-Objects
+"Suchparameter für die Query 'patienten'"
+input Suchparameter {
+  nachname: String = null
+  email: String = null
+}
+
+input PatientInput {
+  nachname: String!
+  email: String!
+  kategorie: Int!
+  hasNewsletter: Boolean!
+  geburtsdatum: Date!
+  familienstand: Familienstand!
+  homepage: String
+  geschlecht: Geschlecht!
+  adresse: AdresseInput!
+  rechnungen: [RechnungInput!]!
+  fachaerzte: [Facharzt!]!
+  username: String!
+}
+
+enum Geschlecht {
+  MAENNLICH
+  WEIBLICH
+  DIVERS
+}
+
+enum Familienstand {
+  LEDIG
+  VERHEIRATET
+  GESCHIEDEN
+  VERWITWET
+}
+
+enum Facharzt {
+  CHIRURGIE
+  HALS_NASEN_OHREN
+  KARDIOLOGIE
+  NEUROLOGIE
+}
+
+input AdresseInput {
+  plz: String!
+  ort: String!
+}
+
+input RechnungInput {
+  betrag: Decimal!
+  waehrung: String!
+}
+
+type CreatePayload {
+  id: Int!
+}
+
+type LoginResult {
+  token: String!
+  expiresIn: String!
+  roles: [String!]!
+}
