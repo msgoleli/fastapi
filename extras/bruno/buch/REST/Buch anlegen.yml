@@ -1,0 +1,37 @@
+info:
+  name: Buch anlegen
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{restUrl}}/buecher"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "titel": "Der Beispielroman",
+        "isbn": "9781234567897",
+        "erscheinungsdatum": "2024-03-15",
+        "genre": "Roman",
+        "verlag_id": {{verlagId}},
+        "autoren_ids": [{{autorId}}]
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

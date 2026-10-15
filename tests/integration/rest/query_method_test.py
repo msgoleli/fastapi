@@ -54,8 +54,8 @@ def test_get_by_email(email: str) -> None:
     assert len(content) == 1
     patient = content[0]
     assert patient is not None
-    assert patient.get("email") == email
-    assert patient.get("id") is not None
+    assert buch.get("email") == email
+    assert buch.get("id") is not None
 
 
 @pytest.mark.rest

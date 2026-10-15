@@ -110,6 +110,145 @@ wheels = [
 ]
 
 [[package]]
+name = "buch"
+version = "2026.10.1"
+source = { editable = "." }
+dependencies = [
+    { name = "anyio" },
+    { name = "cffi" },
+    { name = "cryptography" },
+    { name = "email-validator" },
+    { name = "fastapi" },
+    { name = "jwcrypto" },
+    { name = "loguru" },
+    { name = "openpyxl" },
+    { name = "orjson" },
+    { name = "prometheus-client" },
+    { name = "prometheus-fastapi-instrumentator" },
+    { name = "psycopg", extra = ["binary", "pool"] },
+    { name = "psycopg-binary" },
+    { name = "psycopg-pool" },
+    { name = "pydantic", extra = ["email"] },
+    { name = "pydantic-core" },
+    { name = "pyfiglet" },
+    { name = "pyinstrument" },
+    { name = "python-dotenv" },
+    { name = "python-keycloak" },
+    { name = "python-multipart" },
+    { name = "pyyaml" },
+    { name = "requests" },
+    { name = "sqlalchemy" },
+    { name = "starlette" },
+    { name = "strawberry-graphql" },
+    { name = "tabulate" },
+    { name = "urllib3" },
+    { name = "uvicorn" },
+    { name = "zttp" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "fastapi", extra = ["standard"] },
+    { name = "httptools" },
+    { name = "locust" },
+    { name = "pygments" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "pytest-env" },
+    { name = "pytest-html" },
+    { name = "pytest-mock" },
+    { name = "python-dotenv" },
+]
+doc = [
+    { name = "griffe" },
+    { name = "markdown" },
+    { name = "mistune" },
+    { name = "mkdocs" },
+    { name = "mkdocs-build-plantuml-plugin" },
+    { name = "mkdocs-material" },
+    { name = "mkdocs-material-extensions" },
+    { name = "mkdocstrings", extra = ["python"] },
+    { name = "mkdocstrings-python" },
+]
+lint = [
+    { name = "pyrefly" },
+    { name = "ruff" },
+    { name = "ty" },
+    { name = "types-jwcrypto" },
+    { name = "types-openpyxl" },
+    { name = "types-tabulate" },
+    { name = "yamllint" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "anyio", specifier = ">=4.15.1,<5.0.0" },
+    { name = "cffi", specifier = ">=2.1.1,<3.0.0" },
+    { name = "cryptography", specifier = ">=49.0.0,<50.0.0" },
+    { name = "email-validator", specifier = ">=2.3.0,<3.0.0" },
+    { name = "fastapi", specifier = ">=0.141.1,<1.0.0" },
+    { name = "jwcrypto", specifier = ">=1.6.1,<2.0.0" },
+    { name = "loguru", specifier = ">=0.7.3,<1.0.0" },
+    { name = "openpyxl", specifier = ">=3.1.5,<4.0.0" },
+    { name = "orjson", specifier = ">=3.12.0,<4.0.0" },
+    { name = "prometheus-client", specifier = ">=0.26.0,<1.0.0" },
+    { name = "prometheus-fastapi-instrumentator", specifier = ">=8.1.0,<9.0.0" },
+    { name = "psycopg", extras = ["binary", "pool"], specifier = ">=3.3.6,<4.0.0" },
+    { name = "psycopg-binary", specifier = ">=3.3.6,<4.0.0" },
+    { name = "psycopg-pool", specifier = ">=3.3.3,<4.0.0" },
+    { name = "pydantic", extras = ["email"], specifier = ">=2.13.5,<3.0.0" },
+    { name = "pydantic-core", specifier = ">=2.46.5,<3.0.0" },
+    { name = "pyfiglet", specifier = ">=1.0.4,<2.0.0" },
+    { name = "pyinstrument", specifier = ">=5.1.3,<6.0.0" },
+    { name = "python-dotenv", specifier = ">=1.2.3,<2.0.0" },
+    { name = "python-keycloak", specifier = ">=7.1.1,<8.0.0" },
+    { name = "python-multipart", specifier = ">=0.0.32,<1.0.0" },
+    { name = "pyyaml", specifier = ">=6.0.3,<7.0.0" },
+    { name = "requests", specifier = "==2.34.2,<3.0.0" },
+    { name = "sqlalchemy", specifier = ">=2.1.1,<3.0.0" },
+    { name = "starlette", specifier = ">=1.7.0,<2.0.0" },
+    { name = "strawberry-graphql", specifier = ">=0.327.7,<1.0.0" },
+    { name = "tabulate", specifier = ">=0.10.0,<1.0.0" },
+    { name = "urllib3", specifier = ">=2.8.0,<3.0.0" },
+    { name = "uvicorn", specifier = ">=0.54.0,<1.0.0" },
+    { name = "zttp", specifier = ">=0.0.34" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "fastapi", extras = ["standard"], specifier = ">=0.141.1,<1.0.0" },
+    { name = "httptools", specifier = ">=0.7.1,<1.0.0" },
+    { name = "locust", specifier = ">=2.46.6,<3.0.0" },
+    { name = "pygments", specifier = ">=2.20.0,<3.0.0" },
+    { name = "pytest", specifier = ">=9.1.0,<10.0.0" },
+    { name = "pytest-cov", specifier = ">=7.1.0,<8.0.0" },
+    { name = "pytest-env", specifier = ">=1.7.1,<2.0.0" },
+    { name = "pytest-html", specifier = ">=4.2.0,<5.0.0" },
+    { name = "pytest-mock", specifier = ">=3.16.0,<4.0.0" },
+    { name = "python-dotenv", specifier = ">=1.2.2,<2.0.0" },
+]
+doc = [
+    { name = "griffe", specifier = ">=2.3.0,<3.0.0" },
+    { name = "markdown", specifier = ">=3.11.0,<4.0.0" },
+    { name = "mistune", specifier = ">=3.3.4,<4.0.0" },
+    { name = "mkdocs", specifier = ">=1.6.1,<2.0.0" },
+    { name = "mkdocs-build-plantuml-plugin", specifier = ">=2.1.0,<3.0.0" },
+    { name = "mkdocs-material", specifier = ">=9.7.7,<10.0.0" },
+    { name = "mkdocs-material-extensions", specifier = ">=1.3.1,<2.0.0" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.6,<2.0.0" },
+    { name = "mkdocstrings-python", specifier = ">=2.0.9,<3.0.0" },
+]
+lint = [
+    { name = "pyrefly", specifier = ">=1.4.0.dev2,<2.0.0" },
+    { name = "ruff", specifier = ">=0.16.9,<1.0.0" },
+    { name = "ty", specifier = ">=0.0.84,<1.0.0" },
+    { name = "types-jwcrypto", specifier = ">=1.6.1.20260928,<2.0.0" },
+    { name = "types-openpyxl", specifier = ">=3.1.5.20260827,<4.0.0" },
+    { name = "types-tabulate", specifier = ">=0.10.0.20260508,<1.0.0" },
+    { name = "yamllint", specifier = ">=1.38.0,<2.0.0" },
+]
+
+[[package]]
 name = "certifi"
 version = "2026.7.22"
 source = { registry = "https://pypi.org/simple" }
@@ -1491,145 +1630,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/5a/82/42f767fc1c1143d6fd36efb827202a2d997a375e160a71eb2888a925aac1/pathspec-1.1.1.tar.gz", hash = "sha256:17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a", size = 135180, upload-time = "2026-04-27T01:46:08.907Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f1/d9/7fb5aa316bc299258e68c73ba3bddbc499654a07f151cba08f6153988714/pathspec-1.1.1-py3-none-any.whl", hash = "sha256:a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189", size = 57328, upload-time = "2026-04-27T01:46:07.06Z" },
-]
-
-[[package]]
-name = "patient"
-version = "2026.10.1"
-source = { editable = "." }
-dependencies = [
-    { name = "anyio" },
-    { name = "cffi" },
-    { name = "cryptography" },
-    { name = "email-validator" },
-    { name = "fastapi" },
-    { name = "jwcrypto" },
-    { name = "loguru" },
-    { name = "openpyxl" },
-    { name = "orjson" },
-    { name = "prometheus-client" },
-    { name = "prometheus-fastapi-instrumentator" },
-    { name = "psycopg", extra = ["binary", "pool"] },
-    { name = "psycopg-binary" },
-    { name = "psycopg-pool" },
-    { name = "pydantic", extra = ["email"] },
-    { name = "pydantic-core" },
-    { name = "pyfiglet" },
-    { name = "pyinstrument" },
-    { name = "python-dotenv" },
-    { name = "python-keycloak" },
-    { name = "python-multipart" },
-    { name = "pyyaml" },
-    { name = "requests" },
-    { name = "sqlalchemy" },
-    { name = "starlette" },
-    { name = "strawberry-graphql" },
-    { name = "tabulate" },
-    { name = "urllib3" },
-    { name = "uvicorn" },
-    { name = "zttp" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "fastapi", extra = ["standard"] },
-    { name = "httptools" },
-    { name = "locust" },
-    { name = "pygments" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "pytest-env" },
-    { name = "pytest-html" },
-    { name = "pytest-mock" },
-    { name = "python-dotenv" },
-]
-doc = [
-    { name = "griffe" },
-    { name = "markdown" },
-    { name = "mistune" },
-    { name = "mkdocs" },
-    { name = "mkdocs-build-plantuml-plugin" },
-    { name = "mkdocs-material" },
-    { name = "mkdocs-material-extensions" },
-    { name = "mkdocstrings", extra = ["python"] },
-    { name = "mkdocstrings-python" },
-]
-lint = [
-    { name = "pyrefly" },
-    { name = "ruff" },
-    { name = "ty" },
-    { name = "types-jwcrypto" },
-    { name = "types-openpyxl" },
-    { name = "types-tabulate" },
-    { name = "yamllint" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "anyio", specifier = ">=4.15.1,<5.0.0" },
-    { name = "cffi", specifier = ">=2.1.1,<3.0.0" },
-    { name = "cryptography", specifier = ">=49.0.0,<50.0.0" },
-    { name = "email-validator", specifier = ">=2.3.0,<3.0.0" },
-    { name = "fastapi", specifier = ">=0.141.1,<1.0.0" },
-    { name = "jwcrypto", specifier = ">=1.6.1,<2.0.0" },
-    { name = "loguru", specifier = ">=0.7.3,<1.0.0" },
-    { name = "openpyxl", specifier = ">=3.1.5,<4.0.0" },
-    { name = "orjson", specifier = ">=3.12.0,<4.0.0" },
-    { name = "prometheus-client", specifier = ">=0.26.0,<1.0.0" },
-    { name = "prometheus-fastapi-instrumentator", specifier = ">=8.1.0,<9.0.0" },
-    { name = "psycopg", extras = ["binary", "pool"], specifier = ">=3.3.6,<4.0.0" },
-    { name = "psycopg-binary", specifier = ">=3.3.6,<4.0.0" },
-    { name = "psycopg-pool", specifier = ">=3.3.3,<4.0.0" },
-    { name = "pydantic", extras = ["email"], specifier = ">=2.13.5,<3.0.0" },
-    { name = "pydantic-core", specifier = ">=2.46.5,<3.0.0" },
-    { name = "pyfiglet", specifier = ">=1.0.4,<2.0.0" },
-    { name = "pyinstrument", specifier = ">=5.1.3,<6.0.0" },
-    { name = "python-dotenv", specifier = ">=1.2.3,<2.0.0" },
-    { name = "python-keycloak", specifier = ">=7.1.1,<8.0.0" },
-    { name = "python-multipart", specifier = ">=0.0.32,<1.0.0" },
-    { name = "pyyaml", specifier = ">=6.0.3,<7.0.0" },
-    { name = "requests", specifier = "==2.34.2,<3.0.0" },
-    { name = "sqlalchemy", specifier = ">=2.1.1,<3.0.0" },
-    { name = "starlette", specifier = ">=1.7.0,<2.0.0" },
-    { name = "strawberry-graphql", specifier = ">=0.327.7,<1.0.0" },
-    { name = "tabulate", specifier = ">=0.10.0,<1.0.0" },
-    { name = "urllib3", specifier = ">=2.8.0,<3.0.0" },
-    { name = "uvicorn", specifier = ">=0.54.0,<1.0.0" },
-    { name = "zttp", specifier = ">=0.0.34" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "fastapi", extras = ["standard"], specifier = ">=0.141.1,<1.0.0" },
-    { name = "httptools", specifier = ">=0.7.1,<1.0.0" },
-    { name = "locust", specifier = ">=2.46.6,<3.0.0" },
-    { name = "pygments", specifier = ">=2.20.0,<3.0.0" },
-    { name = "pytest", specifier = ">=9.1.0,<10.0.0" },
-    { name = "pytest-cov", specifier = ">=7.1.0,<8.0.0" },
-    { name = "pytest-env", specifier = ">=1.7.1,<2.0.0" },
-    { name = "pytest-html", specifier = ">=4.2.0,<5.0.0" },
-    { name = "pytest-mock", specifier = ">=3.16.0,<4.0.0" },
-    { name = "python-dotenv", specifier = ">=1.2.2,<2.0.0" },
-]
-doc = [
-    { name = "griffe", specifier = ">=2.3.0,<3.0.0" },
-    { name = "markdown", specifier = ">=3.11.0,<4.0.0" },
-    { name = "mistune", specifier = ">=3.3.4,<4.0.0" },
-    { name = "mkdocs", specifier = ">=1.6.1,<2.0.0" },
-    { name = "mkdocs-build-plantuml-plugin", specifier = ">=2.1.0,<3.0.0" },
-    { name = "mkdocs-material", specifier = ">=9.7.7,<10.0.0" },
-    { name = "mkdocs-material-extensions", specifier = ">=1.3.1,<2.0.0" },
-    { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.6,<2.0.0" },
-    { name = "mkdocstrings-python", specifier = ">=2.0.9,<3.0.0" },
-]
-lint = [
-    { name = "pyrefly", specifier = ">=1.4.0.dev2,<2.0.0" },
-    { name = "ruff", specifier = ">=0.16.9,<1.0.0" },
-    { name = "ty", specifier = ">=0.0.84,<1.0.0" },
-    { name = "types-jwcrypto", specifier = ">=1.6.1.20260928,<2.0.0" },
-    { name = "types-openpyxl", specifier = ">=3.1.5.20260827,<4.0.0" },
-    { name = "types-tabulate", specifier = ">=0.10.0.20260508,<1.0.0" },
-    { name = "yamllint", specifier = ">=1.38.0,<2.0.0" },
 ]
 
 [[package]]

@@ -1,15 +1,9 @@
-# Beispielprojekt patient
+# Bücherkatalog
 
-## Überblick
+FastAPI-Beispielprojekt zur Verwaltung von Büchern, Autoren und Verlagen. Das Buch ist
+der Aggregate Root; seine Autoren- und Verlagszuordnungen werden über die Buch-API
+verwaltet.
 
-Das ist die Dokumentation zu einem Beispielprojekt für das Wahlpflichtfach
-_Frameworks für Python_.
-
-## Weiterführende Links
-
-| Link | Erläuterung
-| ------ | -------------
-| `https://www.h-ka.de` | Homepage der Hochschule Karlsruhe
-| `https://intranet.hka-iwi.de/iwii` | Intranet für den Studiengang _Informatik_
-| Gibt es nicht mehr seit WS 2023/24 ! | Intranet für den Studiengang _Wirtschaftsinformatik_
-| `https://iwi-hka.de` | Fachschaft Informatik und Wirtschaftsinformatik
+Die Anwendung bietet REST unter `/rest`, GraphQL unter `/graphql` und eine automatische
+OpenAPI-Dokumentation unter `/docs`. Start- und API-Details stehen in der
+[Projekt-README](../README.md); das [ER-Diagramm](er-diagramm.md) zeigt die Relationen.

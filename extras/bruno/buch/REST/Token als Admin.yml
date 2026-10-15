@@ -1,0 +1,33 @@
+info:
+  name: Token als Admin
+  type: http
+  seq: 1
+
+http:
+  method: QUERY
+  url: "{{tokenUrl}}"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "username": "{{username}}",
+        "password": "{{password}}"
+      }
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.token
+      operator: matches
+      value: .\..+\..+
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

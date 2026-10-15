@@ -70,22 +70,23 @@ Mailing gestartet sein. Zur Konfiguration gibt es im jeweiligen Unterverzeichnis
 
 ## Applikationsserver
 
-Durch das Kommando `uv run patient` kann man den Server starten (siehe `project.scripts`
-in `pyproject.toml`).
+Nach `uv sync` startet `uv run buch` den Appserver (siehe `project.scripts` in
+`pyproject.toml`). PostgreSQL muss erreichbar sein.
 
 ## Tests mit pytest
 
-Die Unit- und Integrationstests werden folgendermaßen augerufen, nachdem der Appserver
-gestartet ist:
+Die aktuelle Katalogsuite nutzt eine isolierte SQLite-Datenbank und benötigt keinen
+laufenden Appserver:
 
 ```shell
     uv run pytest
 ```
 
-## Bruno
+## API
 
-Mit _Bruno_ und der Collections in `extras\bruno\patient` kann nun die REST- und
-GraphQL-Schnittstelle des Applikationsservers benutzt werden.
+Nach dem Start stehen OpenAPI unter `https://localhost:8000/docs` und GraphQL unter
+`https://localhost:8000/graphql` zur Verfügung. Der lokale TLS-Zertifikatshinweis des
+Browsers ist bei der Entwicklungsumgebung zu erwarten. Schreibzugriffe benötigen ein Admin-Token.
 
 ## Docker Image
 
@@ -102,10 +103,10 @@ natürlich noch nicht gestartet sein dürfen, setzt man folgende Kommandos ab:
 
 ```shell
     # Windows:
-    cd extras\compose\patient
+    cd extras\compose\buch
 
     # macOS/Linux:
-    cd extras/compose/patient
+    cd extras/compose/buch
 
     docker compose up
 ```

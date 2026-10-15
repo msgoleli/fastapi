@@ -1,0 +1,35 @@
+-- Schema für den Bücherkatalog
+SET default_tablespace = patientspace;
+
+CREATE TABLE IF NOT EXISTS verlag (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    sitz TEXT NOT NULL,
+    website TEXT
+);
+
+CREATE TABLE IF NOT EXISTS autor (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    vorname TEXT NOT NULL,
+    nachname TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS buch (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    titel TEXT NOT NULL,
+    isbn TEXT NOT NULL UNIQUE,
+    erscheinungsdatum DATE NOT NULL,
+    genre TEXT NOT NULL,
+    verlag_id INTEGER NOT NULL REFERENCES verlag(id)
+);
+
+CREATE TABLE IF NOT EXISTS buch_autor (
+    buch_id INTEGER NOT NULL REFERENCES buch(id) ON DELETE CASCADE,
+    autor_id INTEGER NOT NULL REFERENCES autor(id) ON DELETE CASCADE,
+    PRIMARY KEY (buch_id, autor_id)
+);
+
+CREATE INDEX IF NOT EXISTS buch_titel_idx ON buch(titel);
+CREATE INDEX IF NOT EXISTS buch_verlag_id_idx ON buch(verlag_id);
+CREATE INDEX IF NOT EXISTS autor_nachname_idx ON autor(nachname);

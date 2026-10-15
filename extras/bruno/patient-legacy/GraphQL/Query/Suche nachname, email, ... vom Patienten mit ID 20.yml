@@ -1,0 +1,88 @@
+info:
+  name: Suche nachname, email, ... vom Patienten mit ID 20
+  type: graphql
+  seq: 1
+
+graphql:
+  method: POST
+  url: "{{graphqlUrl}}"
+  headers:
+    - name: ""
+      value: ""
+      disabled: true
+  body:
+    query: |-
+      query ($patientId: ID! = "20") {
+        patient(patientId: $patientId) {
+          id
+          version
+          nachname
+          email
+          kategorie
+          hasNewsletter
+          geburtsdatum
+          homepage
+          geschlecht
+          familienstand
+          adresse {
+            plz
+            ort
+          }
+          fachaerzte
+          username
+        }
+      }
+    variables: |-
+      {
+        "patientId": "30"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: eq
+      value: application/json
+    - expression: res.body.data.patient
+      operator: isJson
+    - expression: res.body.data.buch.version
+      operator: gte
+      value: "0"
+    - expression: res.body.data.buch.nachname
+      operator: isString
+    - expression: res.body.data.buch.nachname
+      operator: isNotEmpty
+    - expression: res.body.data.buch.email
+      operator: isString
+    - expression: res.body.data.buch.email
+      operator: isNotEmpty
+    - expression: res.body.data.buch.kategorie
+      operator: gt
+      value: "0"
+    - expression: res.body.data.buch.hasNewsletter
+      operator: isBoolean
+    - expression: res.body.data.buch.geburtsdatum
+      operator: isString
+    - expression: res.body.data.buch.homepage
+      operator: isString
+    - expression: res.body.data.buch.geschlecht
+      operator: isString
+    - expression: res.body.data.buch.familienstand
+      operator: isString
+    - expression: res.body.data.buch.adresse
+      operator: isJson
+    - expression: res.body.data.buch.fachaerzte
+      operator: isArray
+    - expression: res.body.data.buch.username
+      operator: isString
+    - expression: res.body.data.buch.username
+      operator: isNotEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

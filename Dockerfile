@@ -16,16 +16,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Aufruf:   docker build --tag juergenzimmermann/patient:2026.10.1-hardened .
+# Aufruf:   docker build --tag juergenzimmermann/buch:2026.10.1-hardened .
 #               ggf. --no-cache
 #
 #           Windows:   Get-Content Dockerfile | docker run --rm --interactive hadolint/hadolint:v2.15.1-debian
 #           macOS:     cat Dockerfile | docker run --rm --interactive hadolint/hadolint:v2.15.1-debian
 #
-#           docker debug juergenzimmermann/patient:2026.10.1-hardened
-#           docker scout sbom juergenzimmermann/patient:2026.10.1-hardened
-#           docker scout cves juergenzimmermann/patient:2026.10.1-hardened
-#           docker save juergenzimmermann/patient:2026.10.1-hardened > patient.tar
+#           docker debug juergenzimmermann/buch:2026.10.1-hardened
+#           docker scout sbom juergenzimmermann/buch:2026.10.1-hardened
+#           docker scout cves juergenzimmermann/buch:2026.10.1-hardened
+#           docker save juergenzimmermann/buch:2026.10.1-hardened > buch.tar
 #           docker scout attest get dhi.io/python:3.14.3-debian13 --predicate-type https://slsa.dev/provenance/v0.2 --verify
 #               https://docs.docker.com/dhi/core-concepts/slsa
 
@@ -97,8 +97,8 @@ ARG NONROOT_GID=65532
 # https://specs.opencontainers.org/image-spec/annotations
 # https://spdx.org/licenses
 # MAINTAINER ist deprecated https://docs.docker.com/engine/reference/builder/#maintainer-deprecated
-LABEL org.opencontainers.image.title="patient" \
-    org.opencontainers.image.description="Appserver patient mit Basis-Image Trixie hardened" \
+LABEL org.opencontainers.image.title="buch" \
+    org.opencontainers.image.description="Bücherkatalog mit Basis-Image Trixie hardened" \
     org.opencontainers.image.version="2026.10.1-hardened" \
     org.opencontainers.image.licenses="GPL-3.0-or-later" \
     org.opencontainers.image.authors="Juergen.Zimmermann@h-ka.de"
@@ -117,4 +117,4 @@ EXPOSE 8000
 
 STOPSIGNAL SIGINT
 
-ENTRYPOINT ["python", "-m", "patient"]
+ENTRYPOINT ["python", "-m", "buch"]

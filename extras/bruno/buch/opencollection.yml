@@ -1,0 +1,16 @@
+opencollection: 1.0.0
+
+info:
+  name: Buchkatalog
+
+request:
+  variables:
+    - name: baseUrl
+      value: https://localhost:8000
+    - name: restUrl
+      value: "{{baseUrl}}/rest"
+    - name: tokenUrl
+      value: "{{baseUrl}}/auth/token"
+
+bundled: false
+extensions: {}

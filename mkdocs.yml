@@ -18,23 +18,18 @@
 # https://www.mkdocs.org/user-guide
 # https://realpython.com/python-project-documentation-with-mkdocs
 
-site_name: patient
+site_name: Bücherkatalog
 
 nav:
   - Start: index.md
   - Use Cases: use-cases.md
-  - Komponentendiagramm: komponentendiagramm.md
-  - Schichtenarchitektur: schichtenarchitektur.md
   - ER-Diagramm: er-diagramm.md
   - API-Dokumentation:
       # https://chrieke.medium.com/documenting-a-python-package-with-code-reference-via-mkdocs-material-b4a45197f95b
-      - __init__: modules/__init__.md
       - REST-Schnittstelle: modules/rest.md
       - GraphQL-Schnittstelle: modules/graphql.md
-      - Geschäftslogik: modules/service.md
       - Datenbankzugriffsschicht: modules/repository.md
       - Geschäftsobjekte: modules/entity.md
-      - Authentifizierung und Autorisierung: modules/security.md
 
 theme:
   name: material
@@ -75,7 +70,7 @@ markdown_extensions:
   - toc:
       permalink: true
 
-watch: [docs, mkdocs.yml, src/patient]
+watch: [docs, mkdocs.yml, src/buch]
 strict: true
 copyright: Copyright &copy; 2023 - present Jürgen Zimmermann, Hochschule Karlsruhe
 
@@ -88,7 +83,7 @@ plugins:
       default_handler: python
       handlers:
         python:
-          src: src/patient
+          src: src/buch
           options:
             # default: google
             docstring_style: sphinx

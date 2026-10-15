@@ -19,10 +19,10 @@
 
 # TOML (= Tom's Obvious Minimal Language) https://toml.io
 
-# Aufruf:   uv run patient
-#               uv run python -m patient
-#               uv run fastapi dev src/patient
-#               uv run uvicorn src.patient:app --http zttp --http2 --ssl-certfile=src\patient\config\resources\tls\certificate.crt --ssl-keyfile=src\patient\config\resources\tls\key.pem
+# Aufruf:   uv run buch
+#               uv run python -m buch
+#               uv run fastapi dev src/buch
+#               uv run uvicorn buch.fastapi_app:app --app-dir src
 #
 #           curl -v --http2 --insecure `
 #               --oauth2-bearer <access_token> `
@@ -73,9 +73,9 @@
 #           uv publish --token <UV_PUBLISH_TOKEN>
 
 [project]
-name = "patient"
+name = "buch"
 version = "2026.10.1"
-description = "Beispiel mit FastAPI, PostgreSQL, Keycloak, Pydantic, Strawberry und uv"
+description = "Bücherkatalog mit FastAPI, PostgreSQL, SQLAlchemy und Strawberry GraphQL"
 readme = "README.md"
 authors = [
     { name = "Juergen Zimmermann", email = "Juergen.Zimmermann@h-ka.de" },
@@ -205,12 +205,15 @@ dependencies = [
 ]
 
 [project.scripts]
-patient = "patient:main"
+buch = "buch:main"
 
 [build-system]
 # https://docs.astral.sh/uv/concepts/build-backend/#using-the-uv-build-backend
 requires = ["uv_build>=0.12.20,<1.0.0"]
 build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "buch"
 
 [project.urls]
 homepage = "https://www.h-ka.de"
@@ -283,10 +286,10 @@ lint = [
 
 # https://coverage.readthedocs.io/en/latest/source.html
 [tool.coverage.run]
-include = ["src/patient/service/*"]
+include = ["src/buch/entity/*", "src/buch/router/*", "src/buch/graphql_api/*"]
 
 [tool.fastapi]
-entrypoint = "patient.main:app"
+entrypoint = "buch.fastapi_app:app"
 
 # https://pyrefly.org/en/docs/configuration
 [tool.pyrefly]
@@ -303,7 +306,7 @@ preset = "strict"
 minversion = "9.1.0"
 # fuer Unit-Tests
 pythonpath = ["src"]
-testpaths = ["tests/unit/patient/service", "tests/integration"]
+testpaths = ["tests/catalog"]
 # -m: nur Tests mit dem spezifizierten _Marker_ ausführen
 # -r A: zusaetzliche Zusammenfassung anzeigen (A = All)
 # --html erfordert pytest-html

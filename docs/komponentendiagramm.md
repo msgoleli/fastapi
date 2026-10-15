@@ -1,5 +1,11 @@
-# Komponentendiagramm
+# Komponenten
 
-Komponentendiagramm für das Beispielprojekt:
-
-![file](diagramme/out/Komponenten.svg)
+```mermaid
+flowchart LR
+    Client --> REST[REST API]
+    Client --> GQL[GraphQL API]
+    REST --> Root[Buch Aggregate Root]
+    GQL --> Root
+    Root --> Repo[BuchRepository]
+    Repo --> DB[(PostgreSQL)]
+```

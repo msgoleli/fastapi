@@ -31,9 +31,9 @@ entfernen:
 
 - in `extras\compose\patient\.env` die Umgebungsvariable `LOGURU_LEVEL=INFO` setzen,
   d.h. das Kommentarzeichen entfernen
-- in `extras\compose\patient\patient.toml`
-  - bei der Table `[patient.db]` die Property `log-statements` auskommentieren
-  - bei der Table `[patient.graphql]` die Property `graphiql-enabled` auskommentieren
+- in `extras\compose\patient\buch.toml`
+  - bei der Table `[buch.db]` die Property `log-statements` auskommentieren
+  - bei der Table `[buch.graphql]` die Property `graphiql-enabled` auskommentieren
 
 Nun startet man die Backend-Server und den zu testenden Appserver.
 

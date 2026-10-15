@@ -27,19 +27,19 @@ group "default" {
 }
 
 target "hardened" {
-    tags = ["docker.io/juergenzimmermann/patient:2026.10.1-hardened"]
+    tags = ["docker.io/juergenzimmermann/buch:2026.10.1-hardened"]
     #dockerfile = "Dockerfile"
     #no-cache = true
 }
 
 target "trixie" {
-    tags = ["docker.io/juergenzimmermann/patient:2026.10.1-trixie"]
+    tags = ["docker.io/juergenzimmermann/buch:2026.10.1-trixie"]
     dockerfile = "Dockerfile.trixie"
     #no-cache = true
 }
 
 target "alpine" {
-    tags = ["docker.io/juergenzimmermann/patient:2026.10.1-alpine"]
+    tags = ["docker.io/juergenzimmermann/buch:2026.10.1-alpine"]
     dockerfile = "Dockerfile.alpine"
     #no-cache = true
 }

@@ -250,18 +250,18 @@ Mit der URL `https://localhost:8843/realms/python/.well-known/openid-configurati
 kann man in einem Webbrowser die Konfiguration als JSON-Datensatz erhalten.
 
 Die Bestandteile der Basis-URL `https://localhost:8443/realms/python` sind in der
-Konfigurationsdatei `src\patient\config\resources\app.toml` in der _Table_ `[keycloak]`
+Konfigurationsdatei `src\buch\config\resources\app.toml` in der _Table_ `[keycloak]`
 eingetragen:
 
 - `schema`: Defaultwert ist `https`
 - `host`: Defaultwert ist `keycloak`
 - `port`: Defaultwert ist `8443`
 
-Die Defaultwerte sind in `src\patient\config\keycloak.py` definiert.
+Die Defaultwerte sind in `src\buch\config\keycloak.py` definiert.
 
 ## Client Secret
 
-In der Datei `src\patient\config\resources\app.toml` muss man `client-secret` auf
+In der Datei `src\buch\config\resources\app.toml` muss man `client-secret` auf
 folgenden Wert aus _Keycloak_ setzen:
 
 - Menüpunkt `Clients`

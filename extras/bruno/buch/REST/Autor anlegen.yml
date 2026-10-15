@@ -1,0 +1,34 @@
+info:
+  name: Autor anlegen
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{restUrl}}/autoren"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "vorname": "Mira",
+        "nachname": "Beispiel",
+        "email": "mira@example.org"
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
