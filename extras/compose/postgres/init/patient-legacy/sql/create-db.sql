@@ -13,7 +13,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
--- Aufruf:   psql --dbname=postgres --username=postgres --file=/init/patient/sql/create-db.sql
+-- Aufruf:   psql --dbname=postgres --username=postgres --file=/init/patient-legacy/sql/create-db.sql
 
 -- https://www.postgresql.org/docs/current/sql-createuser.html
 -- https://www.postgresql.org/docs/current/sql-createrole.html

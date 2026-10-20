@@ -30,8 +30,8 @@ host-binding = "0.0.0.0"
 
 [db]
 # dialect = "postgresql"
-# username = "patient"
-# name = "patient"
+username = "buch"
+name = "buch"
 password = "p"
 password-admin = "p"
 # host = "postgres"
