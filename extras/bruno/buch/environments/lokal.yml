@@ -2,13 +2,13 @@ name: lokal
 variables:
   - name: username
     value: admin
-  - name: password
-    value: ""
-    secret: true
-  - name: token
-    value: ""
-    secret: true
   - name: verlagId
     value: "1"
   - name: autorId
     value: "1"
+  - secret: true
+    name: password
+    description: ""
+  - secret: true
+    name: token
+    description: ""
