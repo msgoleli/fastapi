@@ -1,11 +1,14 @@
 """Verlage als Referenzentitäten für Bücher."""
 
-from typing import override
+from typing import TYPE_CHECKING, override
 
 from sqlalchemy import Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from buch.entity.base import Base
+
+if TYPE_CHECKING:
+    from buch.entity.buch import Buch
 
 
 class Verlag(Base):

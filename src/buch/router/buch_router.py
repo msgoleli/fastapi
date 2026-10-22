@@ -5,7 +5,7 @@ from datetime import date
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import Session as OrmSession
 
 from buch.entity import Autor, Buch, Verlag
 from buch.repository import Session
@@ -51,7 +51,7 @@ def output(book: Buch) -> BuchOutput:
     )
 
 
-def from_input(data: BuchInput, session) -> Buch:
+def from_input(data: BuchInput, session: OrmSession) -> Buch:
     publisher = session.get(Verlag, data.verlag_id)
     if publisher is None:
         raise HTTPException(status_code=404, detail="Verlag nicht gefunden")
@@ -95,7 +95,12 @@ def create_book(data: BuchInput) -> BuchOutput:
         book = repository.add(session, from_input(data, session))
         session.flush()
         session.refresh(book)
-        return output(repository.get(session, book.id))
+        created = repository.get(session, book.id)
+        if created is None:
+            raise HTTPException(
+                status_code=500, detail="Buch konnte nicht geladen werden"
+            )
+        return output(created)
 
 
 @router.put(
@@ -117,7 +122,12 @@ def update_book(buch_id: int, data: BuchInput) -> BuchOutput:
         book.verlag_id = replacement.verlag_id
         book.autoren = replacement.autoren
         session.flush()
-        return output(repository.get(session, buch_id))
+        updated = repository.get(session, buch_id)
+        if updated is None:
+            raise HTTPException(
+                status_code=500, detail="Buch konnte nicht geladen werden"
+            )
+        return output(updated)
 
 
 @router.delete(

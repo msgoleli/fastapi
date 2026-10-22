@@ -25,17 +25,9 @@ in Python implementiert.
 
 ## Vorbereitung
 
-Wenn der zu testende Appserver als Docker Container gestartet wird, dann sollte man
-Einstellungen wie z.B. ausführliche Log-Ausgaben, die für die Entwicklung hilfreich sind,
-entfernen:
-
-- in `extras\compose\patient\.env` die Umgebungsvariable `LOGURU_LEVEL=INFO` setzen,
-  d.h. das Kommentarzeichen entfernen
-- in `extras\compose\patient\buch.toml`
-  - bei der Table `[buch.db]` die Property `log-statements` auskommentieren
-  - bei der Table `[buch.graphql]` die Property `graphiql-enabled` auskommentieren
-
-Nun startet man die Backend-Server und den zu testenden Appserver.
+Der Lasttest verwendet die Lese-Endpunkte des Bücherkatalogs. Für aussagekräftige
+Ergebnisse sollten vorher Bücher, Autoren und Verlage angelegt sein. PostgreSQL,
+Keycloak und die App müssen laufen.
 
 ## Aufruf
 
@@ -43,7 +35,7 @@ Der Aufruf von _locust_ erfolgt durch folgendes Kommando:
 
 ```shell
   cd tests/lasttest
-  uvx locust
+  uv run locust -f locustfile.py
 ```
 
 ## Konfiguration und Start
@@ -57,6 +49,9 @@ z.B. folgende Einstellungen:
 - Host: `https://localhost:8000`
 
 Jetzt kann man den Button _Start_ anklicken.
+
+Das Locust-Skript meldet sich mit dem lokalen Keycloak-Admin an und erzeugt Last auf
+`/rest/buecher`, `/rest/autoren` und `/rest/verlage`.
 
 ## Interpretation der Ergebnisse
 

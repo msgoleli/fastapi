@@ -1,12 +1,15 @@
 """Autorinnen und Autoren, die mehreren Büchern zugeordnet sein können."""
 
-from typing import override
+from typing import TYPE_CHECKING, override
 
 from sqlalchemy import Identity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from buch.entity.base import Base
 from buch.entity.buch import buch_autor
+
+if TYPE_CHECKING:
+    from buch.entity.buch import Buch
 
 
 class Autor(Base):

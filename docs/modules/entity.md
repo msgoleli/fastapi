@@ -5,4 +5,4 @@
 - `Verlag` veröffentlicht mehrere Bücher.
 - Die Autorenzuordnung wird in `buch_autor` persistiert.
 
-Implementierung: [Entity-Paket](../../src/buch/entity).
+Implementierung: [Entity-Paket](https://github.com/msgoleli/fastapi/tree/buch/src/buch/entity).

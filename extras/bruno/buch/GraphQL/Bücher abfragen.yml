@@ -1,0 +1,39 @@
+info:
+  name: Bücher abfragen
+  type: graphql
+  seq: 1
+
+graphql:
+  method: POST
+  url: "{{graphqlUrl}}"
+  headers: []
+  body:
+    query: |-
+      query {
+        buecher {
+          id
+          titel
+          isbn
+          erscheinungsdatum
+          genre
+          verlag { id name sitz }
+          autoren { id vorname nachname email }
+        }
+        autoren { id vorname nachname email }
+        verlage { id name sitz website }
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.data.buecher
+      operator: isArray
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

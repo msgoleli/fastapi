@@ -11,6 +11,8 @@ request:
       value: "{{baseUrl}}/rest"
     - name: tokenUrl
       value: "{{baseUrl}}/auth/token"
+    - name: graphqlUrl
+      value: "{{baseUrl}}/graphql"
 
 bundled: false
 extensions: {}

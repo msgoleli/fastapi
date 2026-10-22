@@ -65,27 +65,18 @@ class GetUser(HttpUser):
     # https://docs.locust.io/en/stable/api.html#locust.task
     # https://docs.locust.io/en/stable/api.html#locust.User.weight
     @task(100)
-    def get_id(self) -> None:
-        """GET-Requests mit einer ID als Pfadparameter."""
-        for patient_id in [1, 20, 30, 40, 50, 60]:
-            response = self.client.get(f"/rest/{patient_id}")
-            print(f"{response.json()['id']}")
+    def get_books(self) -> None:
+        """Bücher mit Verlag und Autorinnen und Autoren abrufen."""
+        self.client.get("/rest/buecher")
 
     @task(200)
-    def get_nachname(self) -> None:
-        """GET-Requests mit dem Nachnamen als Query-Parameter."""
+    def search_books(self) -> None:
+        """Bücher nach einem Teil des Titels filtern."""
         for teil in ["a", "i", "n", "e", "v"]:
-            self.client.get("/rest", params={"nachname": teil})
+            self.client.get("/rest/buecher", params={"q": teil})
 
     @task(150)
-    def get_email(self) -> None:
-        """GET-Requests mit der Emailadresse als Query-Parameter."""
-        for email in [
-            "admin@acme.com",
-            "alice@acme.de",
-            "alice@acme.edu",
-            "alice@acme.ch",
-            "diana@acme.uk",
-            "eve@acme.jp",
-        ]:
-            self.client.get("/rest", params={"email": email})
+    def get_authors_and_publishers(self) -> None:
+        """Autoren- und Verlagslisten abrufen."""
+        self.client.get("/rest/autoren")
+        self.client.get("/rest/verlage")

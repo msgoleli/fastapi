@@ -1,13 +1,15 @@
 """FastAPI-Anwendung für den Bücherkatalog."""
 
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from collections.abc import AsyncIterator
+from typing import Awaitable, Callable
 
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from prometheus_fastapi_instrumentator import Instrumentator
 from sqlalchemy.exc import IntegrityError
+from starlette.middleware.base import RequestResponseEndpoint
 
 from buch.banner import banner
 from buch.entity import Base  # registriert alle ORM-Modelle
@@ -25,7 +27,7 @@ from buch.security import (
 
 
 @asynccontextmanager
-async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
     Base.metadata.create_all(bind=engine)
     banner(app.routes)
     yield
@@ -54,17 +56,24 @@ app.include_router(shutdown_router, prefix="/admin")
 
 
 @app.middleware("http")
-async def security_headers(request: Request, call_next) -> Response:
+async def security_headers(
+    request: Request,
+    call_next: RequestResponseEndpoint,
+) -> Response:
     response = await call_next(request)
     set_response_headers(response)
     return response
 
 
 @app.exception_handler(IntegrityError)
-async def integrity_error_handler(_request: Request, _exc: IntegrityError) -> JSONResponse:
+async def integrity_error_handler(
+    _request: Request, _exc: IntegrityError
+) -> JSONResponse:
     return JSONResponse(
         status_code=409,
-        content={"detail": "Der Datensatz verletzt eine eindeutige oder referenzielle Bedingung."},
+        content={
+            "detail": "Der Datensatz verletzt eine eindeutige oder referenzielle Bedingung."
+        },
     )
 
 
@@ -74,6 +83,9 @@ def login_error_handler(_request: Request, _exc: LoginError) -> JSONResponse:
 
 
 @app.exception_handler(AuthorizationError)
-def authorization_error_handler(_request: Request, _exc: AuthorizationError) -> JSONResponse:
-    return JSONResponse(status_code=401, content={"detail": "Authentifizierung erforderlich"})
-
+def authorization_error_handler(
+    _request: Request, _exc: AuthorizationError
+) -> JSONResponse:
+    return JSONResponse(
+        status_code=401, content={"detail": "Authentifizierung erforderlich"}
+    )

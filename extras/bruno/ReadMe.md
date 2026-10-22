@@ -30,5 +30,9 @@ Bei erneutem Ausführen müssen Verlagname, E-Mail-Adresse und ISBN eindeutig ge
 werden. Falls Verlag oder Autor andere IDs als `1` erhalten, im Environment `lokal` die
 Variablen `verlagId` und `autorId` anpassen.
 
+Die GraphQL-Requests liegen im Ordner `GraphQL`. **Bücher abfragen** liest Bücher,
+Autoren und Verlage. **Buch anlegen** benötigt ebenfalls den Admin-Token und die IDs
+aus dem Environment. Für wiederholte Mutations muss die ISBN eindeutig geändert werden.
+
 Die frühere Patient-Collection wurde unverändert unter `extras/bruno/patient-legacy`
 aufbewahrt. Sie gehört nicht mehr zur Bücherkatalog-API.

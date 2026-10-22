@@ -66,16 +66,28 @@ Eine Bruno-Collection mit Requests für Login, Autoren, Verlage und Bücher lieg
 
 GraphQL ist unter `/graphql` erreichbar. Queries: `buecher(titel)`, `buch(id)`,
 `autoren` und `verlage`. Die Mutation `buchAnlegen(buch)` übernimmt dieselben
-Buchdaten und Referenz-IDs wie die REST-API.
+Buchdaten und Referenz-IDs wie die REST-API. Beispielrequests liegen in der Bruno-
+Collection unter `extras/bruno/buch/GraphQL`.
 
 ## Tests
 
-Die aktuelle Katalogsuite liegt in `tests/catalog` und verwendet eine isolierte
-SQLite-Datenbank. Die früheren Patiententests bleiben als Altbestand unter `tests/`
-liegen, werden durch `testpaths` aber nicht mehr gesammelt.
+Die Katalogsuite in `tests/catalog` prüft das Buch-Aggregat und REST-/GraphQL-Aufrufe
+mit einer isolierten SQLite-Datenbank. Die alten Patiententests werden nicht gesammelt.
 
 ```shell
 uv run pytest
+```
+
+Ruff, Formatierung, Typprüfungen, Dokumentations-Build und Dependency-Audit laufen
+lokal mit den folgenden Befehlen. Dieselben Prüfungen laufen in GitHub Actions:
+
+```shell
+uv run ruff check src/buch tests/catalog tests/lasttest
+uv run ruff format --check src/buch tests/catalog tests/lasttest
+uv run ty check src/buch tests/catalog
+uv run pyrefly check
+uv run mkdocs build --strict
+uv audit --no-dev
 ```
 
 ## Domäne

@@ -135,7 +135,7 @@ dependencies = [
     # Foreign Function Interface for Python calling C code, z.B. in cryptography
     "cffi>=2.1.1,<3.0.0",
     # https://cryptography.io fuer python-keycloak bzw. jwcrypto
-    "cryptography>=49.0.0,<50.0.0",
+    "cryptography>=49.0.0,<51.0.0",
     # Fuer Pydantic zur Validierung https://github.com/JoshData/python-email-validator
     "email-validator>=2.3.0,<3.0.0",
     # https://fastapi.tiangolo.com einschl. starlette, pydantic, uvicorn

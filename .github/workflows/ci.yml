@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main, buch]
+  pull_request:
+    branches: [main, buch]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Qualität, Tests und Doku
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: uv und Python einrichten
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          python-version: "3.15"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Projektabhängigkeiten installieren
+        run: uv sync --locked
+
+      - name: Ruff-Lint
+        run: uv run ruff check --select E,F,I tests/catalog/test_book_api.py tests/lasttest/locustfile.py
+
+      - name: Ruff-Formatierung prüfen
+        run: uv run ruff format --check src/buch/fastapi_app.py src/buch/router/buch_router.py tests/catalog/test_book_api.py tests/lasttest/locustfile.py
+
+      - name: Typen mit Pyrefly prüfen
+        run: uv run pyrefly check
+
+      - name: pytest
+        run: uv run pytest
+
+      - name: MkDocs bauen
+        run: uv run mkdocs build --strict
+
+      - name: Abhängigkeiten auf bekannte Schwachstellen prüfen
+        run: uv audit --no-dev
+
+  owasp-dependency-check:
+    name: OWASP Dependency-Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Abhängigkeiten scannen
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: Bücherkatalog
+          path: .
+          format: HTML
+          out: reports
+          args: --enableExperimental --failOnCVSS 7

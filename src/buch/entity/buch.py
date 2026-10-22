@@ -1,12 +1,16 @@
 """Buch als Aggregate Root des Katalogs."""
 
 from datetime import date
-from typing import override
+from typing import TYPE_CHECKING, override
 
 from sqlalchemy import Column, ForeignKey, Identity, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from buch.entity.base import Base
+
+if TYPE_CHECKING:
+    from buch.entity.autor import Autor
+    from buch.entity.verlag import Verlag
 
 buch_autor = Table(
     "buch_autor",

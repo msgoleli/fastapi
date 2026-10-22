@@ -22,6 +22,10 @@ site_name: Bücherkatalog
 
 nav:
   - Start: index.md
+  - Projekt:
+      - Projektplan: projektplan.md
+      - Notizen: projekt-notizen.md
+      - Zeiterfassung: zeiterfassung.md
   - Use Cases: use-cases.md
   - ER-Diagramm: er-diagramm.md
   - API-Dokumentation:
@@ -30,6 +34,8 @@ nav:
       - GraphQL-Schnittstelle: modules/graphql.md
       - Datenbankzugriffsschicht: modules/repository.md
       - Geschäftsobjekte: modules/entity.md
+      - Komponentenarchitektur: komponentendiagramm.md
+      - Schichtenarchitektur: schichtenarchitektur.md
 
 theme:
   name: material

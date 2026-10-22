@@ -1,0 +1,43 @@
+info:
+  name: Buch anlegen
+  type: graphql
+  seq: 2
+
+graphql:
+  method: POST
+  url: "{{graphqlUrl}}"
+  headers: []
+  body:
+    query: |-
+      mutation {
+        buchAnlegen(buch: {
+          titel: "GraphQL Beispielbuch"
+          isbn: "9781234567811"
+          erscheinungsdatum: "2024-05-10"
+          genre: "Sachbuch"
+          verlagId: {{verlagId}}
+          autorenIds: [{{autorId}}]
+        }) {
+          id
+          titel
+          verlag { name }
+          autoren { vorname nachname }
+        }
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body.data.buchAnlegen.id
+      operator: isNotEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
