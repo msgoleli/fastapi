@@ -29,10 +29,10 @@ jobs:
         run: uv sync --locked
 
       - name: Ruff-Lint
-        run: uv run ruff check --select E,F,I tests/catalog/test_book_api.py tests/lasttest/locustfile.py
+        run: uv run ruff check --select E,F,I tests/unit/buch tests/catalog/test_book_api.py tests/lasttest/locustfile.py
 
       - name: Ruff-Formatierung prüfen
-        run: uv run ruff format --check src/buch/fastapi_app.py src/buch/router/buch_router.py tests/catalog/test_book_api.py tests/lasttest/locustfile.py
+        run: uv run ruff format --check src/buch/fastapi_app.py src/buch/router/buch_router.py tests/unit/buch tests/catalog/test_book_api.py tests/lasttest/locustfile.py
 
       - name: Typen mit Pyrefly prüfen
         run: uv run pyrefly check

@@ -15,7 +15,7 @@ Aggregate Root und verweist auf eigenständig verwaltete Autoren und Verlage.
 | Anmeldung | Keycloak, Bearer-Token und Admin-Rolle | Konfiguriert | Schreibzugriff lokal mit Keycloak prüfen |
 | Bruno | REST- und GraphQL-Requests | Angelegt | Requests gegen laufenden Server ausführen |
 | Lasttest | Locust-Tasks für Bücher, Autoren und Verlage | Angepasst | Lasttest lokal durchführen |
-| Qualitätssicherung | Ruff, ty, Pyrefly, pytest und MkDocs in GitHub Actions | Eingerichtet | Ersten Workflow-Lauf auf GitHub prüfen |
+| Qualitätssicherung | Unit- und Integrationstests, Ruff, Pyrefly und MkDocs in GitHub Actions | Eingerichtet | Ersten Workflow-Lauf auf GitHub prüfen |
 | Abhängigkeitsprüfung | uv-Audit und OWASP Dependency-Check | Eingerichtet | Bericht und Treffer bewerten |
 | Dokumentation | API-, Architektur- und Projektunterlagen | Vorhanden | Nach Tests aktualisieren |
 

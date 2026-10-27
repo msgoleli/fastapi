@@ -306,7 +306,7 @@ preset = "strict"
 minversion = "9.1.0"
 # fuer Unit-Tests
 pythonpath = ["src"]
-testpaths = ["tests/catalog"]
+testpaths = ["tests/unit/buch", "tests/catalog"]
 # -m: nur Tests mit dem spezifizierten _Marker_ ausführen
 # -r A: zusaetzliche Zusammenfassung anzeigen (A = All)
 # --html erfordert pytest-html
@@ -415,7 +415,7 @@ max-statements-in-try = 7
 # https://docs.astral.sh/ty/reference/configuration/#python
 python = "./.venv"
 # https://docs.astral.sh/ty/modules
-root = ["./src", "./tests/unit", "./tests/integration"]
+root = ["./src", "./tests/unit/buch", "./tests/integration"]
 
 [tool.uv]
 required-version = ">= 0.12.20"
