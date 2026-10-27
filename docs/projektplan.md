@@ -11,7 +11,7 @@ Aggregate Root und verweist auf eigenständig verwaltete Autoren und Verlage.
 | --- | --- | --- | --- |
 | Domänenmodell | Buch, Autor, Verlag und Buch-Autor-Zuordnung | Implementiert | Modelltests ausführen |
 | REST und GraphQL | Bücherkatalog lesen und pflegen | Implementiert | API-Tests ausführen |
-| PostgreSQL | Datenbank und Schema `buch` | Konfiguriert | Compose-Setup mit leerem Volume prüfen |
+| PostgreSQL | Vorhandene Datenbank und Schema `patient`, Buch-Tabellen ergänzt | Konfiguriert | Compose-Setup mit leerem Volume prüfen |
 | Anmeldung | Keycloak, Bearer-Token und Admin-Rolle | Konfiguriert | Schreibzugriff lokal mit Keycloak prüfen |
 | Bruno | REST- und GraphQL-Requests | Angelegt | Requests gegen laufenden Server ausführen |
 | Lasttest | Locust-Tasks für Bücher, Autoren und Verlage | Angepasst | Lasttest lokal durchführen |

@@ -7,10 +7,11 @@ als eigenständige Referenzen verwaltet.
 
 ## Starten
 
-Voraussetzung ist eine erreichbare PostgreSQL-Datenbank `buch` mit Schema `buch`
-entsprechend `src/buch/config/resources/app.toml`. Die Tabellen `buch`, `autor`,
-`verlag` und `buch_autor` werden beim Anwendungsstart aus den SQLAlchemy-Modellen
-erstellt. Hinweise zur initialen Datenbankeinrichtung stehen in
+Voraussetzung ist die vorhandene PostgreSQL-Datenbank `patient` mit Rolle `patient`
+und Passwort `p`. Der Bücherkatalog nutzt darin das Schema `patient`; die Tabellen
+`buch`, `autor`,
+`verlag` und `buch_autor` werden beim Anwendungsstart aus den SQLAlchemy-Modellen erstellt.
+Hinweise zur Datenbankeinrichtung stehen in
 `extras/compose/postgres/ReadMe.md`.
 
 ```shell

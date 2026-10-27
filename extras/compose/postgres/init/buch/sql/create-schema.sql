@@ -1,6 +1,6 @@
--- Aufruf: psql --dbname=buch --username=postgres --file=/init/buch/sql/create-schema.sql
+-- Aufruf: psql --dbname=patient --username=postgres --file=/init/buch/sql/create-schema.sql
 
-CREATE SCHEMA IF NOT EXISTS buch AUTHORIZATION buch;
+CREATE SCHEMA IF NOT EXISTS patient AUTHORIZATION patient;
 
-ALTER ROLE buch SET search_path = 'buch';
-ALTER ROLE buch SET default_tablespace = 'buchspace';
+ALTER ROLE patient SET search_path = 'patient';
+ALTER ROLE patient SET default_tablespace = 'patientspace';

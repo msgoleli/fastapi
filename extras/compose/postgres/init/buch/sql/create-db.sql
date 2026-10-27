@@ -1,7 +1,3 @@
--- Aufruf: psql --dbname=postgres --username=postgres --file=/init/buch/sql/create-db.sql
-
-CREATE USER buch PASSWORD 'p';
-CREATE DATABASE buch;
-GRANT ALL ON DATABASE buch TO buch;
-
-CREATE TABLESPACE buchspace OWNER buch LOCATION '/tablespace/buch';
+-- Der Bücherkatalog verwendet die vorhandene Datenbank und Rolle "patient".
+-- Diese werden bereits durch das ursprüngliche Patient-Projekt angelegt.
+-- Daher hier bewusst keine neue Datenbank und keinen zweiten Benutzer anlegen.

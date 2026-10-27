@@ -27,8 +27,8 @@
 
 [db]
 # dialect = "postgresql"
-username = "buch"
-name = "buch"
+username = "patient"
+name = "patient"
 password = "p"
 password-admin = "p"
 host = "localhost"

@@ -30,11 +30,11 @@ host-binding = "0.0.0.0"
 
 [db]
 # dialect = "postgresql"
-username = "buch"
-name = "buch"
+username = "patient"
+name = "patient"
+host = "postgres"
 password = "p"
 password-admin = "p"
-# host = "postgres"
 # Locust: auskommentieren
 log-statements = true
 
