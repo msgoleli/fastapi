@@ -1,5 +1,13 @@
 # Bücherkatalog
 
+## Entwicklung mit Cursor
+
+Dieses Repository enthält einen Bücherkatalog mit FastAPI. Die
+[Dokumentation zur Entwicklung mit Cursor](docs/entwicklung-mit-cursor.md) beschreibt die
+Einrichtung der Entwicklungsumgebung, den Projektaufbau, Cursor-Funktionen und deren
+Anwendung an einer möglichen API-Erweiterung. Sie vergleicht außerdem Cursor mit
+Visual Studio Code.
+
 FastAPI-Anwendung zur Verwaltung von Büchern, Autoren und Verlagen. Ein Buch ist der
 Aggregate Root: die Buch-API ändert die Buchdaten und die Zuordnung zu vorhandenen
 Autoren und einem vorhandenen Verlag in einer Transaktion. Autoren und Verlage werden

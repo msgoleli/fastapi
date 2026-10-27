@@ -26,6 +26,7 @@ nav:
       - Projektplan: projektplan.md
       - Notizen: projekt-notizen.md
       - Zeiterfassung: zeiterfassung.md
+  - Entwicklung mit Cursor: entwicklung-mit-cursor.md
   - Use Cases: use-cases.md
   - ER-Diagramm: er-diagramm.md
   - API-Dokumentation:

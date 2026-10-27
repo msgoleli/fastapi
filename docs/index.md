@@ -10,3 +10,5 @@ OpenAPI-Dokumentation unter `/docs`. Start- und API-Details stehen in der
 
 Projektaufgaben, Entscheidungen und Arbeitszeiten stehen im [Projektplan](projektplan.md),
 den [Projektnotizen](projekt-notizen.md) und der [Zeiterfassung](zeiterfassung.md).
+
+Ergänzende Informationen zur [Entwicklung mit Cursor](entwicklung-mit-cursor.md) beschreiben die Einrichtung und die Arbeit am Bücherkatalog.
