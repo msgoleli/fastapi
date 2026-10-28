@@ -1,10 +1,8 @@
-"""FastAPI-Anwendung für den Bücherkatalog."""
+"""FastAPI-Anwendung für Bücher."""
 
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import Awaitable, Callable
 
-from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -24,18 +22,21 @@ from buch.security import (
     router as auth_router,
     set_response_headers,
 )
+from fastapi import FastAPI, Request, Response
 
 
 @asynccontextmanager
-async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
+async def lifespan(_app: FastAPI) -> AsyncGenerator[None]:
     Base.metadata.create_all(bind=engine)
     banner(app.routes)
-    yield
-    engine.dispose()
+    try:
+        yield
+    finally:
+        engine.dispose()
 
 
 app = FastAPI(
-    title="Bücherkatalog API",
+    title="Buch API",
     description="REST-API zur Verwaltung von Büchern, Autoren und Verlagen.",
     version="1.0.0",
     lifespan=lifespan,
@@ -66,13 +67,13 @@ async def security_headers(
 
 
 @app.exception_handler(IntegrityError)
-async def integrity_error_handler(
-    _request: Request, _exc: IntegrityError
-) -> JSONResponse:
+def integrity_error_handler(_request: Request, _exc: IntegrityError) -> JSONResponse:
     return JSONResponse(
         status_code=409,
         content={
-            "detail": "Der Datensatz verletzt eine eindeutige oder referenzielle Bedingung."
+            "detail": (
+                "Der Datensatz verletzt eine eindeutige oder referenzielle Bedingung."
+            )
         },
     )
 

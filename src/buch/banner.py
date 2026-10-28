@@ -25,7 +25,6 @@ from types import FunctionType
 from typing import Final, NamedTuple
 
 import cryptography
-import fastapi
 import keycloak
 import openpyxl
 import psycopg
@@ -37,6 +36,7 @@ from pyfiglet import Figlet
 from starlette.routing import BaseRoute, Route
 from tabulate import tabulate
 
+import fastapi
 from buch.config import db_url
 from buch.repository import engine
 
@@ -117,7 +117,7 @@ def banner(routes: list[BaseRoute]) -> None:
     """Banner für den Start des Servers."""
     figlet: Final = Figlet()
     print()
-    print(figlet.renderText("BUCHKATALOG"))
+    print(figlet.renderText("BUCH"))
 
     rechnername: Final = gethostname()
     # Default Isolation Level "read committed": Schreibsperren und keine Lesesperren

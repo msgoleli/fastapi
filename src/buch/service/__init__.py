@@ -1,3 +1,3 @@
-"""Geschäftslogik des Bücherkatalogs wird durch die Buch-Aggregat-Operationen gebündelt."""
+"""Geschäftslogik für Buch-Aggregate."""
 
 __all__: list[str] = []

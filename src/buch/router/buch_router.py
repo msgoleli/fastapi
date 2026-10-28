@@ -1,8 +1,7 @@
-"""REST-Endpunkte für den Bücherkatalog."""
+"""REST-Endpunkte für Bücher."""
 
 from datetime import date
 
-from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session as OrmSession
@@ -11,6 +10,7 @@ from buch.entity import Autor, Buch, Verlag
 from buch.repository import Session
 from buch.repository.buch_repository import BuchRepository
 from buch.security import Role, RolesRequired
+from fastapi import APIRouter, Depends, HTTPException, status
 
 router = APIRouter(prefix="/buecher", tags=["Bücher"])
 repository = BuchRepository()

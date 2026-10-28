@@ -1,4 +1,4 @@
--- Schema für den Bücherkatalog
+-- Schema für die Buch-Anwendung
 CREATE SCHEMA IF NOT EXISTS patient AUTHORIZATION patient;
 SET search_path TO patient;
 SET default_tablespace = patientspace;

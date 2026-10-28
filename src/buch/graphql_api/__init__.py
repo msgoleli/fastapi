@@ -1,4 +1,4 @@
-"""GraphQL-Schnittstelle für den Bücherkatalog."""
+"""GraphQL-Schnittstelle für Bücher."""
 
 from buch.graphql_api.schema import graphql_router
 

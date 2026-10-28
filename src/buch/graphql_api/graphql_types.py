@@ -1,4 +1,4 @@
-"""GraphQL-Datentypen für den Bücherkatalog."""
+"""GraphQL-Datentypen für Bücher."""
 
 from datetime import date
 
