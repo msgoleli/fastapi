@@ -25,7 +25,7 @@ in Python implementiert.
 
 ## Vorbereitung
 
-Der Lasttest verwendet die Lese-Endpunkte des Bücherkatalogs. Für aussagekräftige
+Der Lasttest verwendet die Lese-Endpunkte der Buch-API. Für aussagekräftige
 Ergebnisse sollten vorher Bücher, Autoren und Verlage angelegt sein. PostgreSQL,
 Keycloak und die App müssen laufen.
 
@@ -34,8 +34,7 @@ Keycloak und die App müssen laufen.
 Der Aufruf von _locust_ erfolgt durch folgendes Kommando:
 
 ```shell
-  cd tests/lasttest
-  uv run locust -f locustfile.py
+  uv run locust -f tests/lasttest/locustfile.py
 ```
 
 ## Konfiguration und Start

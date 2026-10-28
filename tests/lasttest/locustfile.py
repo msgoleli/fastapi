@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Aufruf:   uvx locust -f .\tests\lasttest\locustfile.py
+# Aufruf:   uv run locust -f tests/lasttest/locustfile.py
 
 #           http://localhost:8089
 #           z.B. $env:LOGURU_LEVEL = 'INFO'

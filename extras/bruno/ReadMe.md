@@ -1,6 +1,6 @@
 # Bruno-Collections
 
-## Buchkatalog
+## Buch
 
 Die aktuelle Collection liegt in `extras/bruno/buch`. In Bruno **Open Collection** wählen
 und diesen Ordner öffnen; danach das Environment `lokal` auswählen.
@@ -35,4 +35,4 @@ Autoren und Verlage. **Buch anlegen** benötigt ebenfalls den Admin-Token und di
 aus dem Environment. Für wiederholte Mutations muss die ISBN eindeutig geändert werden.
 
 Die frühere Patient-Collection wurde unverändert unter `extras/bruno/patient-legacy`
-aufbewahrt. Sie gehört nicht mehr zur Bücherkatalog-API.
+aufbewahrt. Sie gehört nicht mehr zur Buch-API.
