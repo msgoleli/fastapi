@@ -1,6 +1,7 @@
 """API-Integrationstests mit einer isolierten SQLite-Datenbank."""
 
 from collections.abc import Iterator
+from http import HTTPStatus
 from importlib import import_module
 
 import pytest
@@ -54,7 +55,7 @@ def client(monkeypatch: pytest.MonkeyPatch) -> Iterator[TestClient]:
     monkeypatch.setitem(
         app.dependency_overrides,
         get_token_service,
-        lambda: TestTokenService(),
+        TestTokenService,
     )
 
     Base.metadata.create_all(engine)
@@ -76,8 +77,8 @@ def create_references(client: TestClient) -> tuple[int, int]:
         headers=headers,
         json={"name": "Nordlicht", "sitz": "Hamburg", "website": "https://example.org"},
     )
-    assert author_response.status_code == 201
-    assert publisher_response.status_code == 201
+    assert author_response.status_code == HTTPStatus.CREATED
+    assert publisher_response.status_code == HTTPStatus.CREATED
     return author_response.json()["id"], publisher_response.json()["id"]
 
 
@@ -87,7 +88,7 @@ def test_write_endpoints_require_an_admin_token(client: TestClient) -> None:
         json={"name": "Nordlicht", "sitz": "Hamburg", "website": None},
     )
 
-    assert response.status_code == 401
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
 
 
 def test_rest_creates_and_filters_a_book_aggregate(client: TestClient) -> None:
@@ -105,12 +106,12 @@ def test_rest_creates_and_filters_a_book_aggregate(client: TestClient) -> None:
         },
     )
 
-    assert response.status_code == 201
+    assert response.status_code == HTTPStatus.CREATED
     assert response.json()["verlag"] == "Nordlicht"
     assert response.json()["autoren"] == ["Mira Beispiel"]
 
     listing = client.get("/rest/buecher", params={"q": "Katalog"})
-    assert listing.status_code == 200
+    assert listing.status_code == HTTPStatus.OK
     assert [book["titel"] for book in listing.json()] == ["Der Katalog"]
 
 
@@ -135,7 +136,7 @@ def test_graphql_lists_books_and_creates_one_with_admin(client: TestClient) -> N
         },
     )
 
-    assert response.status_code == 200
+    assert response.status_code == HTTPStatus.OK
     assert "errors" not in response.json()
     assert response.json()["data"]["buchAnlegen"]["titel"] == "GraphQL im Katalog"
 
@@ -143,5 +144,5 @@ def test_graphql_lists_books_and_creates_one_with_admin(client: TestClient) -> N
         "/graphql",
         json={"query": "{ buecher { titel verlag { name } autoren { nachname } } }"},
     )
-    assert listing.status_code == 200
+    assert listing.status_code == HTTPStatus.OK
     assert listing.json()["data"]["buecher"][0]["verlag"]["name"] == "Nordlicht"

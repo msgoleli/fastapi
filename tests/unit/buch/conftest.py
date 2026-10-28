@@ -1,4 +1,4 @@
-"""Fixtures für Unit-Tests des Bücherkatalogs."""
+"""Fixtures für Unit-Tests der Buch-Anwendung."""
 
 import pytest
 from pytest_mock import MockerFixture

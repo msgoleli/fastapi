@@ -1,7 +1,7 @@
 """Tests des Buch-Aggregats mit einer isolierten SQLite-Datenbank."""
 
-from datetime import date
 from collections.abc import Iterator
+from datetime import date
 
 import pytest
 from sqlalchemy import create_engine, select
