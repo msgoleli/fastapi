@@ -1,4 +1,4 @@
-# Bücherkatalog
+# Buch
 
 ## Entwicklung mit Cursor
 
@@ -16,7 +16,7 @@ als eigenständige Referenzen verwaltet.
 ## Starten
 
 Voraussetzung ist die vorhandene PostgreSQL-Datenbank `patient` mit Rolle `patient`
-und Passwort `p`. Der Bücherkatalog nutzt darin das Schema `patient`; die Tabellen
+und Passwort `p`. Die Buch-Anwendung nutzt darin das Schema `patient`; die Tabellen
 `buch`, `autor`,
 `verlag` und `buch_autor` werden beim Anwendungsstart aus den SQLAlchemy-Modellen erstellt.
 Hinweise zur Datenbankeinrichtung stehen in

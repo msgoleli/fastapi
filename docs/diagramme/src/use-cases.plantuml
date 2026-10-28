@@ -1,7 +1,7 @@
 @startuml Use Cases
 left to right direction
 actor Client
-rectangle "Bücherkatalog" {
+rectangle "Buch" {
   Client --> (Bücher suchen und lesen)
   Client --> (Buch anlegen und ändern)
   Client --> (Buch löschen)

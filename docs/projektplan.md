@@ -2,7 +2,7 @@
 
 ## Ziel
 
-Eine lokal startbare FastAPI-Anwendung für einen Bücherkatalog. Ein Buch ist der
+Eine lokal startbare FastAPI-Anwendung für Bücher. Ein Buch ist der
 Aggregate Root und verweist auf eigenständig verwaltete Autoren und Verlage.
 
 ## Arbeitspakete
@@ -10,7 +10,7 @@ Aggregate Root und verweist auf eigenständig verwaltete Autoren und Verlage.
 | Arbeitspaket | Ergebnis | Stand | Nächster Schritt |
 | --- | --- | --- | --- |
 | Domänenmodell | Buch, Autor, Verlag und Buch-Autor-Zuordnung | Implementiert | Modelltests ausführen |
-| REST und GraphQL | Bücherkatalog lesen und pflegen | Implementiert | API-Tests ausführen |
+| REST und GraphQL | Bücher lesen und pflegen | Implementiert | API-Tests ausführen |
 | PostgreSQL | Vorhandene Datenbank und Schema `patient`, Buch-Tabellen ergänzt | Konfiguriert | Compose-Setup mit leerem Volume prüfen |
 | Anmeldung | Keycloak, Bearer-Token und Admin-Rolle | Konfiguriert | Schreibzugriff lokal mit Keycloak prüfen |
 | Bruno | REST- und GraphQL-Requests | Angelegt | Requests gegen laufenden Server ausführen |
@@ -27,7 +27,7 @@ Aggregate Root und verweist auf eigenständig verwaltete Autoren und Verlage.
   erfolgreich.
 - `uv run pytest`, Ruff, beide Typprüfungen und der MkDocs-Build laufen erfolgreich.
 - GitHub Actions ist auf dem Branch `buch` erfolgreich.
-- Bruno-Requests und Locust laufen gegen den lokalen Bücherkatalog.
+- Bruno-Requests und Locust laufen gegen die lokale Buch-API.
 
 ## Risiken und Voraussetzungen
 

@@ -75,7 +75,7 @@ Nach `uv sync` startet `uv run buch` den Appserver (siehe `project.scripts` in
 
 ## Tests mit pytest
 
-Die aktuelle Katalogsuite nutzt eine isolierte SQLite-Datenbank und benötigt keinen
+Die aktuelle Buchsuite nutzt eine isolierte SQLite-Datenbank und benötigt keinen
 laufenden Appserver:
 
 ```shell

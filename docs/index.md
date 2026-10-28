@@ -1,4 +1,4 @@
-# Bücherkatalog
+# Buch
 
 FastAPI-Beispielprojekt zur Verwaltung von Büchern, Autoren und Verlagen. Das Buch ist
 der Aggregate Root; seine Autoren- und Verlagszuordnungen werden über die Buch-API
