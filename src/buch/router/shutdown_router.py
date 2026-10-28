@@ -19,11 +19,11 @@ import os
 import signal
 from typing import Any, Final
 
-from fastapi import APIRouter, Depends
 from loguru import logger
 
 from buch.security.role import Role
 from buch.security.roles_required import RolesRequired
+from fastapi import APIRouter, Depends
 
 __all__ = ["router"]
 

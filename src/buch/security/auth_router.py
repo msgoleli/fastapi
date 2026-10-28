@@ -18,12 +18,12 @@
 from json import JSONDecodeError
 from typing import Annotated, Any, Final
 
-from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.responses import JSONResponse
 from loguru import logger
 
 from buch.security.dependencies import get_token_service
 from buch.security.login_data import LoginData
+from fastapi import APIRouter, Depends, Request, Response, status
 lazy from buch.security.token_service import TokenService
 
 __all__ = ["router"]

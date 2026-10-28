@@ -21,7 +21,7 @@ class Autor(Base):
     nachname: Mapped[str]
     email: Mapped[str] = mapped_column(unique=True)
     id: Mapped[int] = mapped_column(Identity(), primary_key=True, init=False)
-    buecher: Mapped[list["Buch"]] = relationship(
+    buecher: Mapped[list[Buch]] = relationship(
         secondary=buch_autor,
         back_populates="autoren",
         default_factory=list,

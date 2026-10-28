@@ -30,9 +30,9 @@ class Buch(Base):
     erscheinungsdatum: Mapped[date]
     genre: Mapped[str]
     verlag_id: Mapped[int] = mapped_column(ForeignKey("verlag.id"))
-    verlag: Mapped["Verlag"] = relationship(back_populates="buecher")
+    verlag: Mapped[Verlag] = relationship(back_populates="buecher")
     id: Mapped[int] = mapped_column(Identity(), primary_key=True, init=False)
-    autoren: Mapped[list["Autor"]] = relationship(
+    autoren: Mapped[list[Autor]] = relationship(
         secondary=buch_autor,
         back_populates="buecher",
         default_factory=list,

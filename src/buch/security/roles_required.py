@@ -17,11 +17,11 @@
 
 from typing import Annotated, Final
 
-from fastapi import Depends, HTTPException, Request, status
 from loguru import logger
 
 from buch.security.dependencies import get_token_service
 from buch.security.role import Role
+from fastapi import Depends, HTTPException, Request, status
 lazy from buch.security.token_service import TokenService
 lazy from buch.security.user import User
 
@@ -58,7 +58,9 @@ class RolesRequired:
                 )
                 raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
             request.state.current_user = user
-            logger.debug("Rolle {} bestätigt für {}", self.required_roles, user.username)
+            logger.debug(
+                "Rolle {} bestätigt für {}", self.required_roles, user.username
+            )
             return  # request
 
         for role in user.roles:

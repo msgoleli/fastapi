@@ -17,11 +17,11 @@
 
 from typing import Final
 
-from fastapi import APIRouter
 from sqlalchemy import text
 from sqlalchemy.exc import OperationalError
 
 from buch.repository import engine
+from fastapi import APIRouter
 
 __all__ = ["router"]
 
