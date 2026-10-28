@@ -98,7 +98,7 @@ ARG NONROOT_GID=65532
 # https://spdx.org/licenses
 # MAINTAINER ist deprecated https://docs.docker.com/engine/reference/builder/#maintainer-deprecated
 LABEL org.opencontainers.image.title="buch" \
-    org.opencontainers.image.description="Bücherkatalog mit Basis-Image Trixie hardened" \
+    org.opencontainers.image.description="Buch-API mit Basis-Image Trixie hardened" \
     org.opencontainers.image.version="2026.10.1-hardened" \
     org.opencontainers.image.licenses="GPL-3.0-or-later" \
     org.opencontainers.image.authors="Juergen.Zimmermann@h-ka.de"

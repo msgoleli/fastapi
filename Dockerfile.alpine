@@ -111,7 +111,7 @@ ARG APP_GID=10000
 # https://spdx.org/licenses
 # MAINTAINER ist deprecated https://docs.docker.com/engine/reference/builder/#maintainer-deprecated
 LABEL org.opencontainers.image.title="buch" \
-    org.opencontainers.image.description="Bücherkatalog mit Basis-Image Alpine" \
+    org.opencontainers.image.description="Buch-API mit Basis-Image Alpine" \
     org.opencontainers.image.version="2026.10.1-alpine" \
     org.opencontainers.image.licenses="GPL-3.0-or-later" \
     org.opencontainers.image.authors="Juergen.Zimmermann@h-ka.de"
