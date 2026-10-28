@@ -34,12 +34,12 @@
 #           uv run pytest -k test_post_invalid_json
 #
 #           cd tests\lasttest
-#           uvx locust
+#           uv run locust -f tests/lasttest/locustfile.py
 #
 #           $env:USERPROFILE\.local\bin: uv, uvx, ruff, ty, pyrefly
-#           ruff check --preview [--fix] src tests
-#           ruff format --preview [--diff] [--check] src tests
-#           ty check src tests/unit tests/integration
+#           uv run ruff check --preview src tests/unit/buch tests/catalog tests/lasttest
+#           uv run ruff format --preview --check src tests/unit/buch tests/catalog tests/lasttest
+#           uv run ty check src tests/unit/buch tests/catalog
 #           pyrefly check --verbose --output-format full-text
 #           pyrefly report
 #
@@ -75,7 +75,7 @@
 [project]
 name = "buch"
 version = "2026.10.1"
-description = "Bücherkatalog mit FastAPI, PostgreSQL, SQLAlchemy und Strawberry GraphQL"
+description = "Buch-API mit FastAPI, PostgreSQL, SQLAlchemy und Strawberry GraphQL"
 readme = "README.md"
 authors = [
     { name = "Juergen Zimmermann", email = "Juergen.Zimmermann@h-ka.de" },
@@ -83,7 +83,7 @@ authors = [
 maintainers = [
     { name = "Jürgen Zimmermann", email = "Juergen.Zimmermann@h-ka.de" },
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.15"
 keywords = [
     "Python",
     "FastAPI",
@@ -338,6 +338,8 @@ markers = [
 
 [tool.ruff]
 preview = true
+target-version = "py315"
+exclude = ["tests/integration", "tests/unit/patient"]
 
 [tool.ruff.lint]
 select = [
@@ -396,6 +398,12 @@ ignore = [
     "no-self-use",
     # UTF-8 ist default ab Python 3.15
     "unspecified-encoding",
+    # Lazy imports intentionally use Python 3.15's typing-aware import syntax.
+    "TC",
+    # Existing public API and test helpers are documented through FastAPI schemas/tests.
+    "D101",
+    "D102",
+    "D103",
 ]
 
 [tool.ruff.lint.isort]
@@ -403,6 +411,7 @@ case-sensitive = true
 combine-as-imports = true
 
 [tool.ruff.lint.per-file-ignores]
+"src/buch/__init__.py" = ["non-empty-init-module"]
 "tests/**/*.py" = ["assert", "undocumented-public-function"]
 "tests/integration/**/*_test.py" = ["raise-vanilla-args"]
 "tests/unit/patient/service/*_test.py" = ["unused-lambda-argument"]
