@@ -21,12 +21,12 @@ lazy from collections.abc import Mapping
 from jwcrypto.common import JWException
 from keycloak import KeycloakAuthenticationError, KeycloakOpenID, KeycloakOperationError
 from loguru import logger
-lazy from fastapi import Request
 
 from buch.config import keycloak_config
 from buch.security.exceptions import AuthorizationError, LoginError
 from buch.security.role import Role
 from buch.security.user import User
+lazy from fastapi import Request
 
 __all__ = ["TokenService"]
 
@@ -112,14 +112,13 @@ class TokenService:
             # Ungueltiger Token, fehlende bzw. ungueltige Claims, kein Mapping in Claim
             raise AuthorizationError from err
 
-        user = User(
+        return User(
             username=username,
             email=email,
             nachname=nachname,
             vorname=vorname,
             roles=roles,
         )
-        return user
 
     def get_user_from_request(self, request: Request) -> User:
         """Die User-Daten aus dem codierten "Authorization"-String extrahieren.

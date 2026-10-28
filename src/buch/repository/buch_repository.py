@@ -1,5 +1,7 @@
 """Datenzugriff für Buch-Aggregate."""
 
+import builtins
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
@@ -16,7 +18,7 @@ class BuchRepository:
             .where(Buch.id == buch_id)
         )
 
-    def list(self, session: Session, q: str | None = None) -> list[Buch]:
+    def list(self, session: Session, q: str | None = None) -> builtins.list[Buch]:
         statement = select(Buch).options(
             selectinload(Buch.autoren), selectinload(Buch.verlag)
         )
