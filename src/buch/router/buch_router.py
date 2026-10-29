@@ -1,18 +1,21 @@
 """REST-Endpunkte für Bücher."""
 
 from datetime import date
+from typing import Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic_core import PydanticCustomError
 from sqlalchemy import select
 from sqlalchemy.orm import Session as OrmSession
 
 from buch.entity import Autor, Buch, Verlag
 from buch.repository import Session
-from buch.repository.buch_repository import BuchRepository
+from buch.repository.buch_repository import BuchRepository, BuchSuchkriterien
 from buch.security import Role, RolesRequired
 from fastapi import APIRouter, Depends, HTTPException, status
 
 router = APIRouter(prefix="/buecher", tags=["Bücher"])
+query_router = APIRouter(tags=["Bücher"])
 repository = BuchRepository()
 
 
@@ -21,8 +24,8 @@ class BuchInput(BaseModel):
     isbn: str = Field(pattern=r"^(?:\d{10}|\d{13})$")
     erscheinungsdatum: date
     genre: str = Field(min_length=1, max_length=100)
-    verlag_id: int
-    autoren_ids: list[int] = []
+    verlag_id: int = Field(gt=0)
+    autoren_ids: list[int] = Field(default_factory=list)
 
 
 class BuchOutput(BaseModel):
@@ -38,6 +41,34 @@ class BuchOutput(BaseModel):
     autoren: list[str]
 
 
+class BuchSuchparameter(BaseModel):
+    """Suchkriterien, die der QUERY-Request als JSON-Body übermittelt."""
+
+    titel: str | None = Field(default=None, min_length=1, max_length=300)
+    isbn: str | None = Field(default=None, pattern=r"^(?:\d{10}|\d{13})$")
+    genre: str | None = Field(default=None, min_length=1, max_length=100)
+    verlag_id: int | None = Field(default=None, gt=0)
+    autor_id: int | None = Field(default=None, gt=0)
+
+    @model_validator(mode="after")
+    def require_search_criteria(self) -> Self:
+        if all(
+            value is None
+            for value in (
+                self.titel,
+                self.isbn,
+                self.genre,
+                self.verlag_id,
+                self.autor_id,
+            )
+        ):
+            raise PydanticCustomError(
+                "missing_search_criteria",
+                "Mindestens ein Suchkriterium muss angegeben werden.",
+            )
+        return self
+
+
 def output(book: Buch) -> BuchOutput:
     return BuchOutput(
         id=book.id,
@@ -51,13 +82,38 @@ def output(book: Buch) -> BuchOutput:
     )
 
 
-def from_input(data: BuchInput, session: OrmSession) -> Buch:
+@query_router.api_route(
+    path="/query",
+    methods=["QUERY"],
+    response_model=list[BuchOutput],
+)
+def query_books(search: BuchSuchparameter) -> list[BuchOutput]:
+    """Sucht Bücher mit HTTP QUERY und Kriterien aus dem JSON-Request-Body."""
+    with Session() as session:
+        return [
+            output(book)
+            for book in repository.find(
+                session,
+                BuchSuchkriterien(**search.model_dump(exclude_none=True)),
+            )
+        ]
+
+
+def references_from_input(
+    data: BuchInput,
+    session: OrmSession,
+) -> tuple[Verlag, list[Autor]]:
     publisher = session.get(Verlag, data.verlag_id)
     if publisher is None:
         raise HTTPException(status_code=404, detail="Verlag nicht gefunden")
     authors = list(session.scalars(select(Autor).where(Autor.id.in_(data.autoren_ids))))
     if len(authors) != len(set(data.autoren_ids)):
         raise HTTPException(status_code=404, detail="Autor nicht gefunden")
+    return publisher, authors
+
+
+def from_input(data: BuchInput, session: OrmSession) -> Buch:
+    publisher, authors = references_from_input(data, session)
     return Buch(
         titel=data.titel,
         isbn=data.isbn,
@@ -113,14 +169,14 @@ def update_book(buch_id: int, data: BuchInput) -> BuchOutput:
         book = repository.get(session, buch_id)
         if book is None:
             raise HTTPException(status_code=404, detail="Buch nicht gefunden")
-        replacement = from_input(data, session)
-        book.titel = replacement.titel
-        book.isbn = replacement.isbn
-        book.erscheinungsdatum = replacement.erscheinungsdatum
-        book.genre = replacement.genre
-        book.verlag = replacement.verlag
-        book.verlag_id = replacement.verlag_id
-        book.autoren = replacement.autoren
+        publisher, authors = references_from_input(data, session)
+        book.titel = data.titel
+        book.isbn = data.isbn
+        book.erscheinungsdatum = data.erscheinungsdatum
+        book.genre = data.genre
+        book.verlag = publisher
+        book.verlag_id = publisher.id
+        book.autoren = authors
         session.flush()
         updated = repository.get(session, buch_id)
         if updated is None:

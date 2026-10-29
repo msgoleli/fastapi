@@ -14,7 +14,7 @@ http:
     data: |-
       {
         "titel": "Der Beispielroman",
-        "isbn": "9781234567897",
+        "isbn": "{{isbn}}",
         "erscheinungsdatum": "2024-03-15",
         "genre": "Roman",
         "verlag_id": {{verlagId}},

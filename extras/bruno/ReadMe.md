@@ -16,7 +16,10 @@ uv run buch
 `uv run buch` läuft dabei im Projekt-Hauptordner. So testest du den aktuellen lokalen
 Code und nicht ein bereits gebautes Container-Image.
 
-Die API nutzt `https://localhost:8000`. Für das lokale selbst-signierte Zertifikat muss
+Die API nutzt `https://127.0.0.1:8000`. `127.0.0.1` ist hier absichtlich statt
+`localhost` eingetragen: `localhost` kann auf IPv6 (`::1`) zeigen, wo bei gleichzeitig
+laufendem Docker- und lokalem Server ein anderer Dienst auf Port 8000 antwortet. Für
+das lokale selbst-signierte Zertifikat muss
 in Bruno die SSL/TLS-Zertifikatsprüfung deaktiviert sein (Preferences → SSL/TLS
 Certificate Verification).
 
@@ -25,10 +28,18 @@ Im Environment `lokal` das Keycloak-Passwort als Secret eintragen. Zuerst den Re
 anschließend als Secret in die Environment-Variable `token` kopieren. Die Requests zum
 Anlegen benötigen ein Token mit der Rolle `ADMIN`.
 
-Danach **Verlag anlegen**, **Autor anlegen** und **Buch anlegen** der Reihe nach senden.
-Bei erneutem Ausführen müssen Verlagname, E-Mail-Adresse und ISBN eindeutig geändert
-werden. Falls Verlag oder Autor andere IDs als `1` erhalten, im Environment `lokal` die
-Variablen `verlagId` und `autorId` anpassen.
+Die aktuelle lokale Datenbank enthält das Beispielbuch **GraphQL Beispielbuch** mit der
+ISBN `9781234567811`; die QUERY-Beispiele suchen nach diesem Titel und der
+Environment-Variable `suchIsbn`. Bei einer leeren Datenbank zuerst **Verlag anlegen**,
+**Autor anlegen** und **Buch anlegen** der Reihe nach senden. Dann `suchIsbn` auf den Wert
+von `isbn` setzen. Bei einer Neuanlage müssen Verlagname, E-Mail-Adresse und ISBN
+eindeutig sein. Falls Verlag oder Autor andere IDs als `1` erhalten, im Environment
+`lokal` die Variablen `verlagId` und `autorId` anpassen.
+
+Im REST-Ordner **QUERY** liegen Beispiele für die benutzerdefinierte HTTP-Methode
+`QUERY`. Sie verhält sich wie eine lesende Suche, überträgt die Suchkriterien aber als
+JSON im Request-Body statt als URL-Query-Parameter. Die Suche ist öffentlich und benötigt
+keinen Token.
 
 Die GraphQL-Requests liegen im Ordner `GraphQL`. **Bücher abfragen** liest Bücher,
 Autoren und Verlage. **Buch anlegen** benötigt ebenfalls den Admin-Token und die IDs

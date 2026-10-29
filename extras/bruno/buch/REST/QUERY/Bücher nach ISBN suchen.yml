@@ -1,0 +1,32 @@
+info:
+  name: Bücher nach ISBN suchen
+  type: http
+  seq: 2
+
+http:
+  method: QUERY
+  url: "{{restUrl}}/query"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "isbn": "{{suchIsbn}}"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: isArray
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

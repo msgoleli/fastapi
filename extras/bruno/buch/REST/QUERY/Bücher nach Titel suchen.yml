@@ -1,0 +1,34 @@
+info:
+  name: Bücher nach Titel suchen
+  type: http
+  seq: 1
+
+http:
+  method: QUERY
+  url: "{{restUrl}}/query"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "titel": "GraphQL Beispielbuch"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: isArray
+    - expression: res.body
+      operator: isNotEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

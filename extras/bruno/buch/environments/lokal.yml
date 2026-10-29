@@ -6,6 +6,10 @@ variables:
     value: "1"
   - name: autorId
     value: "1"
+  - name: isbn
+    value: "9781234567897"
+  - name: suchIsbn
+    value: "9781234567811"
   - secret: true
     name: password
     description: ""

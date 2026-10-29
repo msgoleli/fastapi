@@ -1,0 +1,27 @@
+info:
+  name: Leere Suchkriterien
+  type: http
+  seq: 4
+
+http:
+  method: QUERY
+  url: "{{restUrl}}/query"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: "{}"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "422"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

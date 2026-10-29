@@ -13,7 +13,7 @@ from buch.banner import banner
 from buch.entity import Base  # registriert alle ORM-Modelle
 from buch.graphql_api import graphql_router
 from buch.repository import engine
-from buch.router import buch_router, katalog_router
+from buch.router import buch_router, katalog_router, query_router
 from buch.router.health_router import router as health_router
 from buch.router.shutdown_router import router as shutdown_router
 from buch.security import (
@@ -44,12 +44,13 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_methods=["GET", "QUERY", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
 Instrumentator().instrument(app).expose(app)
 app.include_router(buch_router, prefix="/rest")
 app.include_router(katalog_router, prefix="/rest")
+app.include_router(query_router, prefix="/rest")
 app.include_router(graphql_router, prefix="/graphql")
 app.include_router(auth_router, prefix="/auth")
 app.include_router(health_router, prefix="/health")

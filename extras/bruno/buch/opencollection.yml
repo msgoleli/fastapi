@@ -6,7 +6,7 @@ info:
 request:
   variables:
     - name: baseUrl
-      value: https://localhost:8000
+      value: https://127.0.0.1:8000
     - name: restUrl
       value: "{{baseUrl}}/rest"
     - name: tokenUrl
