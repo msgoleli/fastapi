@@ -101,6 +101,7 @@ def create_book(client: TestClient, book: Mapping[str, object]) -> dict[str, obj
     return response.json()
 
 
+@pytest.mark.rest
 def test_write_endpoints_require_an_admin_token(client: TestClient) -> None:
     response = client.post(
         "/rest/verlage",
@@ -110,6 +111,7 @@ def test_write_endpoints_require_an_admin_token(client: TestClient) -> None:
     assert response.status_code == HTTPStatus.UNAUTHORIZED
 
 
+@pytest.mark.rest
 def test_rest_creates_and_filters_a_book_aggregate(client: TestClient) -> None:
     author_id, publisher_id = create_references(client)
     response = client.post(
@@ -135,6 +137,7 @@ def test_rest_creates_and_filters_a_book_aggregate(client: TestClient) -> None:
 
 
 @pytest.mark.query_request
+@pytest.mark.rest
 @pytest.mark.parametrize(
     ("criteria", "expected_title"),
     [
@@ -179,6 +182,7 @@ def test_query_method_searches_books_from_json_body(
 
 
 @pytest.mark.query_request
+@pytest.mark.rest
 def test_query_method_combines_book_publisher_and_author_filters(
     client: TestClient,
 ) -> None:
@@ -223,6 +227,7 @@ def test_query_method_combines_book_publisher_and_author_filters(
 
 
 @pytest.mark.query_request
+@pytest.mark.rest
 def test_query_method_returns_empty_list_when_nothing_matches(
     client: TestClient,
 ) -> None:
@@ -233,6 +238,7 @@ def test_query_method_returns_empty_list_when_nothing_matches(
 
 
 @pytest.mark.query_request
+@pytest.mark.rest
 @pytest.mark.parametrize(
     "criteria",
     [{}, {"titel": ""}, {"isbn": "123"}, {"verlag_id": 0}, {"autor_id": -1}],
@@ -247,6 +253,7 @@ def test_query_method_rejects_invalid_search_criteria(
 
 
 @pytest.mark.query_request
+@pytest.mark.rest
 def test_query_method_rejects_malformed_json(client: TestClient) -> None:
     response = client.request(
         "QUERY",
@@ -258,13 +265,29 @@ def test_query_method_rejects_malformed_json(client: TestClient) -> None:
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
 
 
+@pytest.mark.rest
+def test_post_invalid_json(client: TestClient) -> None:
+    response = client.post(
+        "/rest/buecher",
+        content='{"titel" "Ohne Doppelpunkt"}',
+        headers={
+            "Authorization": "Bearer test-admin",
+            "Content-Type": "application/json",
+        },
+    )
+
+    assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
+
+
 @pytest.mark.query_request
+@pytest.mark.rest
 def test_query_method_is_not_exposed_as_get(client: TestClient) -> None:
     response = client.get("/rest/query")
 
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
 
 
+@pytest.mark.rest
 def test_author_endpoints_support_list_get_update_and_delete(
     client: TestClient,
 ) -> None:
@@ -294,6 +317,7 @@ def test_author_endpoints_support_list_get_update_and_delete(
     assert client.get(f"/rest/autoren/{author_id}").status_code == HTTPStatus.NOT_FOUND
 
 
+@pytest.mark.rest
 def test_publisher_endpoints_support_list_get_update_and_delete(
     client: TestClient,
 ) -> None:
@@ -321,6 +345,7 @@ def test_publisher_endpoints_support_list_get_update_and_delete(
     )
 
 
+@pytest.mark.rest
 def test_duplicate_author_email_and_publisher_name_return_conflict(
     client: TestClient,
 ) -> None:
@@ -346,6 +371,7 @@ def test_duplicate_author_email_and_publisher_name_return_conflict(
     assert duplicate_publisher.status_code == HTTPStatus.CONFLICT
 
 
+@pytest.mark.rest
 def test_referenced_author_and_publisher_cannot_be_deleted(client: TestClient) -> None:
     author_id, publisher_id = create_references(client)
     create_book(
@@ -368,6 +394,7 @@ def test_referenced_author_and_publisher_cannot_be_deleted(client: TestClient) -
     assert deleted_publisher.status_code == HTTPStatus.CONFLICT
 
 
+@pytest.mark.rest
 def test_book_endpoints_support_get_update_and_delete(client: TestClient) -> None:
     author_id, publisher_id = create_references(client)
     created = create_book(
@@ -407,6 +434,7 @@ def test_book_endpoints_support_get_update_and_delete(client: TestClient) -> Non
     assert client.get(f"/rest/buecher/{book_id}").status_code == HTTPStatus.NOT_FOUND
 
 
+@pytest.mark.rest
 def test_duplicate_book_isbn_returns_conflict(client: TestClient) -> None:
     author_id, publisher_id = create_references(client)
     payload = {
@@ -447,6 +475,7 @@ def test_duplicate_book_isbn_returns_conflict(client: TestClient) -> None:
         ("DELETE", "/rest/buecher/999999", None),
     ],
 )
+@pytest.mark.rest
 def test_missing_book_get_update_and_delete_return_not_found(
     client: TestClient,
     method: str,
@@ -473,6 +502,7 @@ def test_missing_book_get_update_and_delete_return_not_found(
         ("verlag_id", 0),
     ],
 )
+@pytest.mark.rest
 def test_create_book_validates_required_properties(
     client: TestClient,
     field: str,
@@ -499,6 +529,7 @@ def test_create_book_validates_required_properties(
 
 
 @pytest.mark.parametrize("missing_reference", ["verlag_id", "autoren_ids"])
+@pytest.mark.rest
 def test_create_book_rejects_unknown_references(
     client: TestClient,
     missing_reference: str,
@@ -525,6 +556,7 @@ def test_create_book_rejects_unknown_references(
     assert response.status_code == HTTPStatus.NOT_FOUND
 
 
+@pytest.mark.graphql
 def test_graphql_lists_books_and_creates_one_with_admin(client: TestClient) -> None:
     author_id, publisher_id = create_references(client)
     response = client.post(

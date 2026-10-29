@@ -31,17 +31,18 @@
 #           uv run pytest
 #               KEIN HTTP/2 https://github.com/psf/requests/issues/6856 (s. oben: curl)
 #           uv run pytest -m rest
+#           uv run pytest -m graphql
 #           uv run pytest -k test_post_invalid_json
 #
 #           cd tests\lasttest
-#           uv run locust -f tests/lasttest/locustfile.py
+#           uv run locust -f locustfile.py
 #
 #           $env:USERPROFILE\.local\bin: uv, uvx, ruff, ty, pyrefly
 #           uv run ruff check --preview src tests/unit/buch tests/catalog tests/lasttest
 #           uv run ruff format --preview --check src tests/unit/buch tests/catalog tests/lasttest
 #           uv run ty check src tests/unit/buch tests/catalog
-#           pyrefly check --verbose --output-format full-text
-#           pyrefly report
+#           uv run pyrefly check --verbose --output-format full-text
+#           uv run pyrefly coverage report
 #
 #           uv tool upgrade ruff
 #           uv tool upgrade ty
