@@ -203,6 +203,7 @@ dependencies = [
     "uvicorn>=0.54.0,<1.0.0",
     # https://github.com/Kludex/zttp  bei GitHub gleiche Benutzerkennung wie uvicorn und zttp
     "zttp>=0.0.34",
+    "httpx2>=2.16.0,<3.0.0",
 ]
 
 [project.scripts]
